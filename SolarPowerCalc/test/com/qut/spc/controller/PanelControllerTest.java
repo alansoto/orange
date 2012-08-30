@@ -7,8 +7,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.qut.spc.model.Panel;
-import com.qut.spc.model.converter.SolarPanelConverter;
-import com.qut.spc.model.db.PanelDatabase;
+import com.qut.spc.model.PanelContainer;
+import com.qut.spc.model.PanelDB;
+import com.qut.spc.model.exceptions.InvalidArgumentException;
 
 import static org.mockito.Mockito.*;
 import static org.junit.Assert.*;
@@ -19,41 +20,69 @@ import static org.junit.Assert.*;
  */
 public class PanelControllerTest {
 	
-	private List<Panel> panels;
-	private PanelDatabase db;
+	private PanelDB db;
 	private PanelController controller;
 
 	@Before
 	public void setup(){
-		panels = new ArrayList<Panel>();
-		db = mock(PanelDatabase.class);
-		controller = new PanelController(db);
-		when(db.getPanelsInPriceRange(0, 100)).thenReturn(panels);		
-		
-	}
-	
-	@Test
-	public void testGetPanels_filledDatabase_nonEmptyListOfPanelsIsReturned(){
-		Panel sp1=new Panel();
-		Panel sp2=new Panel();
-		Panel sp3=new Panel();
-		Panel sp4=new Panel();
-		panels.add(sp1);
-		panels.add(sp2);
-		panels.add(sp3);
-		panels.add(sp4);
-		
-		List<SolarPanelConverter> result=controller.getPanelsByPrice(0, 100).getConverters();
-		assertEquals(4, result.size());
-	}
-	
-	@Test
-	public void testGetPanels_emptyDatabase_emptyListIsReturned(){		
-		List<SolarPanelConverter> result=controller.getPanelsByPrice(0, 100).getConverters();
-		
-		assertTrue(result.isEmpty());
-		
+		db = mock(PanelDB.class);
+		controller = new PanelController(db);		
 	}
 
+	@Test
+	public void getPanelsByPrice_validInput_correctDBIsReturned(){
+		PanelDB res=controller.getPanelsByPrice(0, 100);
+		
+		assertEquals(db, res);
+	}
+	
+	@Test
+	public void getPanelsByPrice_validInput_dbIsCalledAppropriately(){
+		controller.getPanelsByPrice(1, 100);
+		
+		try {
+			verify(db).getPanelsInPriceRange(1, 100);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test (expected=InvalidArgumentException.class)
+	public void getPanelsByPrice_exception_InvalidArgumentExceptionIsThrown(){
+		try {
+			when(db.getPanelsInPriceRange(1, 100)).thenThrow(Exception.class);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		controller.getPanelsByPrice(1, 100);
+	}
+	
+	@Test
+	public void getPanelsByCapacity_validInput_correctDBIsReturned(){
+		PanelDB res=controller.getPanelsByCapacity(0, 100);
+		
+		assertEquals(db, res);
+	}
+	
+	@Test
+	public void getPanelsByCapacity_validInput_dbIsCalledAppropriately(){
+		controller.getPanelsByCapacity(1, 100);
+		
+		try {
+			verify(db).getPanelsInCapacity(1, 100);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test (expected=InvalidArgumentException.class)
+	public void getPanelsByCapacity_exception_InvalidArgumentExceptionIsThrown(){
+		try {
+			when(db.getPanelsInCapacity(1, 100)).thenThrow(Exception.class);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		controller.getPanelsByCapacity(1, 100);
+	}
 	
 }

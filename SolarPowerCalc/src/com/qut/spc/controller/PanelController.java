@@ -8,10 +8,11 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
 import com.qut.spc.model.Panel;
-import com.qut.spc.model.converter.PanelConverterWrapper;
-import com.qut.spc.model.converter.SolarPanelConverter;
-import com.qut.spc.model.db.MockDB;
-import com.qut.spc.model.db.PanelDatabase;
+import com.qut.spc.model.PanelContainer;
+import com.qut.spc.model.PanelDB;
+import com.qut.spc.model.db.Database;
+import com.qut.spc.model.exceptions.InvalidArgumentException;
+
 
 /**
  * Public entrypoint for requests to /panel/
@@ -21,13 +22,13 @@ import com.qut.spc.model.db.PanelDatabase;
 @Path("/panel/")
 public class PanelController {
 	
-	private PanelDatabase db;
+	private PanelDB db;
 	
 	public PanelController(){
-		this.db=new MockDB();
+		this.db=new PanelContainer();
 	}
 	
-	public PanelController(PanelDatabase db){
+	public PanelController(PanelDB db){
 		this.db=db;
 	}
 
@@ -40,14 +41,31 @@ public class PanelController {
 	@GET
 	@Produces("application/xml")
 	@Path("/price/{min}/{max}")
-	public PanelConverterWrapper getPanelsByPrice(@PathParam("min") double min, @PathParam("max") double max){
-		ArrayList<SolarPanelConverter> converters=new ArrayList<SolarPanelConverter>();
-		
-		for(Panel p: db.getPanelsInPriceRange(min, max)){
-			converters.add(new SolarPanelConverter(p));
+	public PanelDB getPanelsByPrice(@PathParam("min") double min, @PathParam("max") double max) throws InvalidArgumentException{
+		try {
+			db.getPanelsInPriceRange(min, max);
+		} catch (Exception e) {
+			throw new InvalidArgumentException(e.getMessage());
 		}
-		
-		return new PanelConverterWrapper(converters);
+		return db;
+	}
+	
+	/**
+	 * Returns a XML representation of SolarPanels with a capacity
+	 * @param min Minimum cost of Solar Panel
+	 * @param max Maximum cost of Solar Panel
+	 * @return 
+	 */
+	@GET
+	@Produces("application/xml")
+	@Path("/capacity/{min}/{max}")
+	public PanelDB getPanelsByCapacity(@PathParam("min") double min, @PathParam("max") double max) throws InvalidArgumentException{		
+			try {
+				db.getPanelsInCapacity(min, max);
+			} catch (Exception e) {
+				throw new InvalidArgumentException(e.getMessage());
+			}
+		return db;
 	}
 	
 
