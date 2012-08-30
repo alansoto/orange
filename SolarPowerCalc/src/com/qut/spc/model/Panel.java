@@ -10,6 +10,8 @@ package com.qut.spc.model;
 import javax.persistence.Entity;
 import javax.xml.bind.annotation.XmlElement;
 
+import com.qut.spc.model.db.Database;
+
 @Entity
 public class Panel extends SolarComponent {
 
@@ -37,6 +39,6 @@ public class Panel extends SolarComponent {
 	}
 	
 	public static Panel load(long id) {
-		return loadComponent(id, Panel.class);
+		return Database.loadComponent(id, Panel.class);
 	}
 }

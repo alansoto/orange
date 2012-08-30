@@ -13,6 +13,8 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import com.qut.spc.model.db.Database;
+
 
 /**
  * Wrapper class for list of Battery
@@ -43,7 +45,7 @@ public class BatteryContainer implements BatteryDB {
 	@Override
 	public List<Battery> getBatteriesInPriceRange(double min, double max)
 			throws Exception {
-		list = SolarComponent.getComponentsInPrice(Battery.class, min, max);
+		list = Database.getComponentsInPrice(Battery.class, min, max);
 		return list;
 	}
 	
@@ -58,7 +60,8 @@ public class BatteryContainer implements BatteryDB {
 	@Override
 	public List<Battery> getBatteriesInCapacity(double min, double max)
 			throws Exception {
-		list = SolarComponent.getComponentsInCapacity(Battery.class, min, max);
+		
+		list = Database.getComponentsInCapacity(Battery.class, min, max);
 		return list;
 	}
 }

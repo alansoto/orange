@@ -12,6 +12,7 @@ import org.junit.Test;
 
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
+import com.qut.spc.model.db.Database;
 
 /**
  * Used for testing the abstract class
@@ -24,7 +25,7 @@ class MockSolarComponent extends SolarComponent {
 	}
 	
 	public static MockSolarComponent load(long id) {
-		return loadComponent(id, MockSolarComponent.class);
+		return Database.loadComponent(id, MockSolarComponent.class);
 	}
 
 	public int getMockValue() {

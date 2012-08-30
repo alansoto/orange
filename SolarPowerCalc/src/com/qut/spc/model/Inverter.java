@@ -2,6 +2,8 @@ package com.qut.spc.model;
 
 import javax.xml.bind.annotation.XmlElement;
 
+import com.qut.spc.model.db.Database;
+
 public class Inverter extends SolarComponent {
 	
 	@XmlElement
@@ -58,6 +60,6 @@ public class Inverter extends SolarComponent {
 	}
 	
 	public static Inverter load(long id) {
-		return loadComponent(id, Inverter.class);
+		return Database.loadComponent(id, Inverter.class);
 	}
 }

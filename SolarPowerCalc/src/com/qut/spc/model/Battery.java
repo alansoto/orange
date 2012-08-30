@@ -1,5 +1,7 @@
 package com.qut.spc.model;
 
+import com.qut.spc.model.db.Database;
+
 public class Battery extends SolarComponent {
 	
 	public Battery() {
@@ -7,6 +9,6 @@ public class Battery extends SolarComponent {
 	}
 	
 	public static Battery load(long id) {
-		return loadComponent(id, Battery.class);
+		return Database.loadComponent(id, Battery.class);
 	}
 }

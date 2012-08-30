@@ -13,6 +13,8 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import com.qut.spc.model.db.Database;
+
 
 /**
  * Wrapper class for list of Inverters
@@ -43,7 +45,7 @@ public class InverterContainer implements InverterDB {
 	@Override
 	public List<Inverter> getInvertersInPriceRange(double min, double max)
 			throws Exception {
-		list = SolarComponent.getComponentsInPrice(Inverter.class, min, max);
+		list = Database.getComponentsInPrice(Inverter.class, min, max);
 		return list;
 	}
 	
@@ -58,7 +60,7 @@ public class InverterContainer implements InverterDB {
 	@Override
 	public List<Inverter> getInvertersInCapacity(double min, double max)
 			throws Exception {
-		list = SolarComponent.getComponentsInCapacity(Inverter.class, min, max);
+		list = Database.getComponentsInCapacity(Inverter.class, min, max);
 		return list;
 	}
 }

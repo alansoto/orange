@@ -10,17 +10,22 @@ package com.qut.spc.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+
+import com.qut.spc.model.db.Database;
 
 
 /**
  * Wrapper class for list of SolarPanel
  * @author QuocViet
  */
+@XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name="panels")
 public class PanelContainer implements PanelDB {
-	
+
 	@XmlElement(name="panel")
 	private List<Panel> list;
 	
@@ -43,7 +48,7 @@ public class PanelContainer implements PanelDB {
 	@Override
 	public List<Panel> getPanelsInPriceRange(double min, double max)
 			throws Exception {
-		list = SolarComponent.getComponentsInPrice(Panel.class, min, max);
+		list = Database.getComponentsInPrice(Panel.class, min, max);
 		return list;
 	}
 	
@@ -58,7 +63,7 @@ public class PanelContainer implements PanelDB {
 	@Override
 	public List<Panel> getPanelsInCapacity(double min, double max)
 			throws Exception {
-		list = SolarComponent.getComponentsInCapacity(Panel.class, min, max);
+		list = Database.getComponentsInCapacity(Panel.class, min, max);
 		return list;
 	}
 }
