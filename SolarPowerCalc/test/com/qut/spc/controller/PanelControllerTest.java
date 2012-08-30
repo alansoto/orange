@@ -81,4 +81,32 @@ public class PanelControllerTest {
 		controller.getPanelsByCapacity(1, 100);
 	}
 	
+	@Test
+	public void getPanelsByLocation_validInput_correctDBIsReturned(){
+		PanelDB res=controller.getPanelsByLocation("4169");
+		
+		assertEquals(db, res);
+	}
+	
+	@Test
+	public void getPanelsByLocation_validInput_dbIsCalledAppropriately(){
+		controller.getPanelsByLocation("4444");
+		
+		try {
+			verify(db).getPanelsInLocation("4444");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test (expected=InvalidArgumentException.class)
+	public void getPanelsByLocation_exception_InvalidArgumentExceptionIsThrown(){
+		try {
+			when(db.getPanelsInLocation("1233")).thenThrow(Exception.class);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		controller.getPanelsByLocation("1233");
+	}
+	
 }
