@@ -1,13 +1,9 @@
 package com.qut.spc.controller;
 
-import java.util.ArrayList;
-import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import com.qut.spc.model.Panel;
-import com.qut.spc.model.PanelContainer;
 import com.qut.spc.model.PanelDB;
 import com.qut.spc.model.exceptions.InvalidArgumentException;
 
