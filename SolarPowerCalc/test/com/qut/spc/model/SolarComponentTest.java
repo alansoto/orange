@@ -12,7 +12,7 @@ import org.junit.Test;
 
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
-import com.qut.spc.model.db.Database;
+import com.qut.spc.db.Database;
 
 /**
  * Used for testing the abstract class

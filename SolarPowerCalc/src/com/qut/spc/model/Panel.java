@@ -10,7 +10,7 @@ package com.qut.spc.model;
 import javax.persistence.Entity;
 import javax.xml.bind.annotation.XmlElement;
 
-import com.qut.spc.model.db.Database;
+import com.qut.spc.db.Database;
 
 @Entity
 public class Panel extends SolarComponent {

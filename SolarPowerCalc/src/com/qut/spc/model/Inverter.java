@@ -2,7 +2,7 @@ package com.qut.spc.model;
 
 import javax.xml.bind.annotation.XmlElement;
 
-import com.qut.spc.model.db.Database;
+import com.qut.spc.db.Database;
 
 public class Inverter extends SolarComponent {
 	

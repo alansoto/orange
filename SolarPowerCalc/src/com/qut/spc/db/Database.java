@@ -1,4 +1,4 @@
-package com.qut.spc.model.db;
+package com.qut.spc.db;
 
 import java.util.ArrayList;
 import java.util.List;

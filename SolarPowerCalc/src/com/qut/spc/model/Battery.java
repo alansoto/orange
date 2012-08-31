@@ -1,6 +1,6 @@
 package com.qut.spc.model;
 
-import com.qut.spc.model.db.Database;
+import com.qut.spc.db.Database;
 
 public class Battery extends SolarComponent {
 	

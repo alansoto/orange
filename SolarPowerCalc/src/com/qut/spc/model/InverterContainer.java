@@ -13,7 +13,7 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import com.qut.spc.model.db.Database;
+import com.qut.spc.db.Database;
 
 
 /**

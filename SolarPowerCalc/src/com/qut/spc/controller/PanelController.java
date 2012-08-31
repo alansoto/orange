@@ -6,9 +6,9 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
+import com.qut.spc.exceptions.InvalidArgumentException;
 import com.qut.spc.model.PanelContainer;
 import com.qut.spc.model.PanelDB;
-import com.qut.spc.model.exceptions.InvalidArgumentException;
 
 
 /**

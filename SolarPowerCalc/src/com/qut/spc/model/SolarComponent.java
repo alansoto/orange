@@ -22,7 +22,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import com.google.appengine.api.datastore.Key;
 import com.qut.spc.EMF;
-import com.qut.spc.model.db.Database;
+import com.qut.spc.db.Database;
 
 /**
  * Common interface for each component in solar system.
