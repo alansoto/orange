@@ -45,11 +45,11 @@
             <div class="grid_3 menu-item">
                 FIND
                 <br />
-                <a class="menu-link" href="Default.aspx">SOLAR PANELS</a>
+                <a class="menu-link" id="linkFindSolarPanels" href="Default.aspx">SOLAR PANELS</a>
                 <br />
-                <a class="menu-link" href="Default.aspx">INVERTERS</a>
+                <a class="menu-link" id="linkFindInverters" href="Default.aspx">INVERTERS</a>
                 <br />
-                <a class="menu-link" href="Default.aspx">BATTERIES</a>
+                <a class="menu-link" id="linkFindBatteries" href="Default.aspx">BATTERIES</a>
             </div>
             <div class="grid_3 menu-item">
                 NEWS</div>

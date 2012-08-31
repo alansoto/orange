@@ -51,7 +51,8 @@
                     </td>
                 </tr>
             </table>
-            <input type="submit" id="btnFindSolarPanels" value="Find Solar Panels" style="float: right" />
+            <input type="submit" id="btnSubmit" value="Find Solar Panels" 
+                style="float: right" />
         </div>
         <div class="grid_8 omega">
             <div id="divNoResults">
@@ -70,7 +71,7 @@
     <script type="text/javascript">
         $(document).ready(function ()
         {
-            $('#btnFindSolarPanels').click(function (e)
+            $('#btnSubmit').click(function (e)
             {
                 e.preventDefault();
 
