@@ -20,7 +20,7 @@
         <!-- start: Your System -->
         <div class="grid_12" id="divUserSelection">
             <h2>Your System</h2>
-            <input type="text" id="currentComponent" name="currentComponent" />
+            <input type="text" id="currentComponent" name="currentComponent" style="display:none;" />
             <table class="your-system">
                 <tr>
                     <td id="tdSolarPanelSelection">
