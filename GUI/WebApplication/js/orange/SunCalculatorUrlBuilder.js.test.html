@@ -94,10 +94,10 @@
             url.InverterId = "inv123";
             url.BatteryId = "bat456";
             url.PanelId = "pan789";
-            equal(url.toString(), "http://baseurl/calculate?inverter=inv123&battery=bat456&panel=pan789&panelCount=1", "testing components IDs: http://baseurl/calculate?inverter=inv123&battery=bat456&panel=pan789&panelCount=1");
+            equal(url.toString(), "http://baseurl/calculate?inverterId=inv123&batteryId=bat456&panelId=pan789&panelCount=1", "testing components IDs: http://baseurl/calculate?inverter=inv123&battery=bat456&panel=pan789&panelCount=1");
 
             url.PanelCount = "45";
-            equal(url.toString(), "http://baseurl/calculate?inverter=inv123&battery=bat456&panel=pan789&panelCount=45", "testing optional panel count: http://baseurl/calculate?inverter=inv123&battery=bat456&panel=pan789&panelCount=45");
+            equal(url.toString(), "http://baseurl/calculate?inverterId=inv123&batteryId=bat456&panelId=pan789&panelCount=45", "testing optional panel count: http://baseurl/calculate?inverter=inv123&battery=bat456&panel=pan789&panelCount=45");
 
             url = new UrlBuilder();
             url.GoogleAppsEngineBaseUrl = "http://baseurl";

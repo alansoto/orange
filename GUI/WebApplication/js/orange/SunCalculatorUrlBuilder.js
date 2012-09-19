@@ -74,7 +74,7 @@ function UrlBuilder()
 
             //start calculations of efficiency parameters
             if (this.PanelId != "" && this.InverterId != "" && this.BatteryId != "") {
-                parameters += "&inverter=" + this.InverterId + "&battery=" + this.BatteryId + "&panel=" + this.PanelId;
+                parameters += "&inverterId=" + this.InverterId + "&batteryId=" + this.BatteryId + "&panelId=" + this.PanelId;
                 if (this.PanelCount != "") {
                     parameters += "&panelCount=" + this.PanelCount;
                 }

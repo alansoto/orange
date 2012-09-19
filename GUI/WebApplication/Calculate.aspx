@@ -132,7 +132,7 @@
                     <td>PER WEEK</td>
                 </tr>
                 <tr>
-                    <td><h4>ELECTRICITY PRODUCTION (WATTS)</h4></td>
+                    <td><h4>ELECTRICITY PRODUCTION (kWh)</h4></td>
                     <td><h2 id="electricity_year">12</h2></td>
                     <td><h2 id="electricity_month">12</h2></td>
                     <td><h2 id="electricity_week">12</h2></td>
@@ -785,9 +785,9 @@
     <script type="text/javascript">
         function getResults() {
             var url = new UrlBuilder();
-            url.GoogleAppsEngineBaseUrl = 'http://orange.alansoto.com';
-            //url.Operation = "calculate";
-            url.Operation= 'TestCalculate.xml'
+            //url.GoogleAppsEngineBaseUrl = 'http://orange.alansoto.com';
+            url.GoogleAppsEngineBaseUrl = globalVars.GoogleAppsEngineBaseUrl;
+            url.Operation = "calculate";
             url.BatteryId = ($('#selectionBattery').text()).replace("battery_id_", "");
             url.PanelId = ($('#selectionSolarPanel').text()).replace("panel_id_", "");
             url.InverterId = ($('#selectionInverter').text()).replace("inverter_id_", "");
