@@ -805,9 +805,24 @@
 
         //reads xml and 
         function bindResults(xml) {
-            $('#electricity_year').text($(xml).find('electricityProduction year').text());
-            $('#electricity_month').text($(xml).find('electricityProduction month').text());
-            $('#electricity_week').text($(xml).find('electricityProduction week').text());
+            var h = new HelperFunctions();
+
+            $('#electricity_year').text(
+                
+                    $(xml).find('electricityProduction year').text().toString()
+                
+            );
+            $('#electricity_month').text(
+                
+                    $(xml).find('electricityProduction month').text().toString()
+               
+            );
+            $('#electricity_week').text(
+               
+                    $(xml).find('electricityProduction week').text().toString()
+                
+            );
+
 
             $('#totalCost_year').text($(xml).find('totalCost year').text());
             $('#totalCost_month').text($(xml).find('totalCost month').text());
