@@ -193,7 +193,7 @@
             $thead.append($('<td>').text('MODEL'));
             $thead.append($('<td>').text('MANUFACTURER'));
             $thead.append($('<td>').text('PRICE (AUD)'));
-            $thead.append($('<td>').text('CAPACITY (KW)'));
+            $thead.append($('<td>').text('CAPACITY (W)'));
             $theader.append($thead);
 
             //append headers into table
@@ -273,7 +273,7 @@
             $thead.append($('<td>').text('MODEL'));
             $thead.append($('<td>').text('MANUFACTURER'));
             $thead.append($('<td>').text('PRICE (AUD)'));
-            $thead.append($('<td>').text('CAPACITY (KW)'));
+            $thead.append($('<td>').text('CAPACITY (W)'));
             $theader.append($thead);
 
             //append headers into table
@@ -355,7 +355,7 @@
             $thead.append($('<td>').text('MODEL'));
             $thead.append($('<td>').text('MANUFACTURER'));
             $thead.append($('<td>').text('PRICE (AUD)'));
-            $thead.append($('<td>').text('CAPACITY (KW)'));
+            $thead.append($('<td>').text('CAPACITY (W)'));
             $theader.append($thead);
 
             //append headers into table
