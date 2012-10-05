@@ -14,4 +14,13 @@
     <month>62</month>
     <week>384</week>
   </returnOnInvestment>
+  <governmentRebates>
+    <year>113</year>
+    <month>24</month>
+    <week>525</week>
+  </governmentRebates>
+  <optimalFacingAngle>
+    <summer>34</summer>
+    <winter>23</winter>
+  </optimalFacingAngle>
 </calculations>

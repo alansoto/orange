@@ -124,7 +124,7 @@
         <!-- start: results panel -->
         <div id="divResultsPanel" class="grid_12">
             <h3>YOUR RESULTS</h3>
-            <table>
+            <table id="wizardResults">
                 <tr>
                     <td></td>
                     <td>PER YEAR</td>
@@ -133,21 +133,32 @@
                 </tr>
                 <tr>
                     <td><h4>ELECTRICITY PRODUCTION (kWh)</h4></td>
-                    <td><h2 id="electricity_year">12</h2></td>
-                    <td><h2 id="electricity_month">12</h2></td>
-                    <td><h2 id="electricity_week">12</h2></td>
+                    <td><h2 id="electricity_year">NA</h2></td>
+                    <td><h2 id="electricity_month">NA</h2></td>
+                    <td><h2 id="electricity_week">NA</h2></td>
                 </tr>
                 <tr>
                     <td><h4>TOTAL COST (AUD)</h4></td>
-                    <td><h2 id="totalCost_year">12</h2></td>
-                    <td><h2 id="totalCost_month">12</h2></td>
-                    <td><h2 id="totalCost_week">12</h2></td>
+                    <td><h2 id="totalCost_year">NA</h2></td>
+                    <td><h2 id="totalCost_month">NA</h2></td>
+                    <td><h2 id="totalCost_week">NA</h2></td>
                 </tr>
                 <tr>
                     <td><h4>RETURN ON INVESTMENT (AUD)</h4></td>
-                    <td><h2 id="roi_year">12</h2></td>
-                    <td><h2 id="roi_month">12</h2></td>
-                    <td><h2 id="roi_week">12</h2></td>
+                    <td><h2 id="roi_year">NA</h2></td>
+                    <td><h2 id="roi_month">NA</h2></td>
+                    <td><h2 id="roi_week">NA</h2></td>
+                </tr>
+                <tr>
+                    <td><h4>EXPECTED GOVERNMENT REBATES (AUD)</h4></td>
+                    <td><h2 id="governmentRebates_year">NA</h2></td>
+                    <td><h2 id="governmentRebates_month">NA</h2></td>
+                    <td><h2 id="governmentRebates_week">NA</h2></td>
+                </tr>
+                <tr>
+                    <td><h4>OPTIMAL PANEL ANGLE (DEGREES)</h4></td>
+                    <td><h2 id="optimalFacingAngle_summer">NA</h2><br />SUMMER</td>
+                    <td><h2 id="optimalFacingAngle_winter">NA</h2><br />WINTER</td>
                 </tr>
                 
             </table>
@@ -162,7 +173,7 @@
     <script src="js/orange/HelperFunctions.js" type="text/javascript"></script>
     <script src="js/orange/SunCalculatorUrlBuilder.js" type="text/javascript"></script>
     <script src="js/libs/jExpand.js" type="text/javascript"></script>
-    
+    <script src="js/orange/Calculate.aspx.js" type="text/javascript"></script>
     <!-- start: steps set up -->
     <script type="text/javascript">
         function stepZero() {
@@ -781,60 +792,6 @@
     </script>
     <!-- end: battery selection -->
 
-    <!-- start: get results and bind to controls -->
-    <script type="text/javascript">
-        function getResults() {
-            var url = new UrlBuilder();
-            //url.GoogleAppsEngineBaseUrl = 'http://orange.alansoto.com';
-            url.GoogleAppsEngineBaseUrl = globalVars.GoogleAppsEngineBaseUrl;
-            url.Operation = "calculate";
-            url.BatteryId = ($('#selectionBattery').text()).replace("battery_id_", "");
-            url.PanelId = ($('#selectionSolarPanel').text()).replace("panel_id_", "");
-            url.InverterId = ($('#selectionInverter').text()).replace("inverter_id_", "");
-            //alert(url.toString());
-
-
-            $.ajax({
-                type: 'POST',
-                url: 'proxy.aspx',
-                dataType: 'xml',
-                data: { servletCallUrl: url.toString() }
-            }).done(bindResults).fail(genericAjaxErrorHandler);
-
-        }
-
-        //reads xml and 
-        function bindResults(xml) {
-            var h = new HelperFunctions();
-
-            $('#electricity_year').text(
-                
-                    $(xml).find('electricityProduction year').text().toString()
-                
-            );
-            $('#electricity_month').text(
-                
-                    $(xml).find('electricityProduction month').text().toString()
-               
-            );
-            $('#electricity_week').text(
-               
-                    $(xml).find('electricityProduction week').text().toString()
-                
-            );
-
-
-            $('#totalCost_year').text($(xml).find('totalCost year').text());
-            $('#totalCost_month').text($(xml).find('totalCost month').text());
-            $('#totalCost_week').text($(xml).find('totalCost week').text());
-
-            $('#roi_year').text($(xml).find('returnOnInvestment year').text());
-            $('#roi_month').text($(xml).find('returnOnInvestment month').text());
-            $('#roi_week').text($(xml).find('returnOnInvestment week').text());
-            
-
-        }    
-    </script>
-    <!-- end: get results and bind to controls -->
+   
 
 </asp:Content>
