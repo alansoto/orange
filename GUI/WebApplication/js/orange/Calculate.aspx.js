@@ -60,6 +60,13 @@ function bindResults(xml) {
     $('#roi_month').text($(xml).find('returnOnInvestment month').text());
     $('#roi_week').text($(xml).find('returnOnInvestment week').text());
 
+    $('#governmentRebates_year').text($(xml).find('governmentRebates year').text());
+    $('#governmentRebates_month').text($(xml).find('governmentRebates month').text());
+    $('#governmentRebates_week').text($(xml).find('governmentRebates week').text());
+
+    $('#optimalFacingAngle_summer').text($(xml).find('optimalFacingAngle summer').text());
+    $('#optimalFacingAngle_winter').text($(xml).find('optimalFacingAngle winter').text());
+
     //continue implementing here
 
 
