@@ -15,21 +15,25 @@ import com.qut.spc.weather.DailySunProvider;
 
 public class SolarSystem implements SystemCalculationAPI{
 
+	
 	private Panel panel;
-	private String location="";
-	private double timespan=12;
 	private Battery battery;
 	private Inverter inverter;
 	
 	private ElectricityCalculationApi electricityCalculator;
 	private TotalCostCalculationAPI costCalculator;
+	private ROICalculator roiCalculator;
+
 	private int panelCount=1;
 	private double totalCost=-1;
+	private double timespan=12;
 
+	private String location="";
 
-	public SolarSystem(ElectricityCalculationApi electricityCalculator,TotalCostCalculationAPI costCalculator){
+	public SolarSystem(ElectricityCalculationApi electricityCalculator,TotalCostCalculationAPI costCalculator, ROICalculator roiCalculator){
 		this.electricityCalculator=electricityCalculator;
 		this.costCalculator=costCalculator;
+		this.roiCalculator=roiCalculator;
 	}
 
 	@Override
@@ -92,7 +96,7 @@ public class SolarSystem implements SystemCalculationAPI{
 
 	@Override
 	public double getROI() {
-		return 0;
+		return roiCalculator.getROI();
 	}
 
 	public Panel getPanel() {

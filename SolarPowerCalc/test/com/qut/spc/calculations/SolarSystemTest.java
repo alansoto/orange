@@ -36,7 +36,7 @@ public class SolarSystemTest {
 		calc = mock(ElectricityCalculationApi.class);
 		costcalc=mock(TotalCostCalculationAPI.class);
 		
-		container=spy(new SolarSystem(calc,costcalc));
+		container=spy(new SolarSystem(calc,costcalc,new ROICalculator()));
 		when(container.getLocation()).thenReturn("4000");
 		
 		
