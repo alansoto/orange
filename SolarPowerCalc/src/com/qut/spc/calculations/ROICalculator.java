@@ -34,10 +34,6 @@ public class ROICalculator implements ROICalculationAPI {
 		this.dailyUsage = dailyUsage;
 		this.systemCost = systemCost;
 	} 
-//	@Override
-//	public void setSystemSize(double size) throws IllegalArgumentException {
-//		this.systemSize = size;
-//	}
 	
 	private void restrictInput(double electricity, double feedInTariff,
 			double costOfElectricity, double dailyUsage, double systemCost) throws IllegalArgumentException{

@@ -18,6 +18,19 @@ public class InverterController {
 		db = new InverterContainer();
 	}
 	
+	
+	/**
+	 * Returns Available inverters based on the given postcode, price range and capacity range.
+	 * When indirectly accessed through a GET request to /inverter, an XML representation of the inverters will be returned.
+	 * When access is done via a GET request, price, capacity and postcode will default to 0 if not specified
+	 * @param minPrice
+	 * @param maxPrice
+	 * @param minCapacity
+	 * @param maxCapacity
+	 * @param postcode
+	 * @return
+	 * @throws InvalidArgumentException
+	 */
 	@GET
 	@Produces("application/xml")
 	@Path("/")

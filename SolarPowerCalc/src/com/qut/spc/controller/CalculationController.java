@@ -11,26 +11,56 @@ import javax.ws.rs.QueryParam;
 
 import com.qut.spc.api.SystemCalculationAPI;
 import com.qut.spc.calculations.ElectricityCalculator;
+import com.qut.spc.calculations.ROICalculator;
 import com.qut.spc.calculations.SolarSystem;
 import com.qut.spc.calculations.TotalCostCalculator;
 import com.qut.spc.exceptions.InvalidArgumentException;
 import com.qut.spc.model.Battery;
 import com.qut.spc.model.Inverter;
 import com.qut.spc.model.Panel;
+import com.qut.spc.tariffs.ElectricityCost;
+import com.qut.spc.tariffs.FeedInTariffs;
 
+/**
+ * Jersey public access path for retrieving calculation results
+ * @author simen
+ *
+ */
 @Path("/calculate/")
 public class CalculationController {
 	
 	private SystemCalculationAPI calculator;
-
+	
+	private ROICalculator roiCalculator;
+	
 	public CalculationController(){
-		calculator=new SolarSystem(new ElectricityCalculator(),new TotalCostCalculator());
+		roiCalculator=new ROICalculator();
+		calculator=new SolarSystem(new ElectricityCalculator(),new TotalCostCalculator(),roiCalculator);
 	}
 	
-	public CalculationController(SystemCalculationAPI calculator) {
+	public CalculationController(SystemCalculationAPI calculator,ROICalculator roiCalc) {
 		this.calculator=calculator;
+		this.roiCalculator=roiCalc;
 	}
 	
+	
+	
+	/**
+	 * Based on the given inputs returns an XML representation with results from calculating system cost, electricity production
+	 * and return on investment
+	 * @param panelId
+	 * @param panelCount
+	 * @param batteryId
+	 * @param inverterId
+	 * @param postcode
+	 * @param systemCost
+	 * @param inverterEfficiency
+	 * @param panelEfficiency
+	 * @param panelOutput
+	 * @param energyConsumption
+	 * @return
+	 * @throws InvalidArgumentException
+	 */
 	@GET
 	@Produces("application/xml")
 	@Path("/")
@@ -43,13 +73,14 @@ public class CalculationController {
 			@QueryParam("systemCost")@DefaultValue("-1")double systemCost,
 			@QueryParam("inverterEfficiency")@DefaultValue("-1")double inverterEfficiency,
 			@QueryParam("panelEfficiency")@DefaultValue("-1")double panelEfficiency,
-			@QueryParam("panelOutput")@DefaultValue("-1")double panelOutput) throws InvalidArgumentException{
+			@QueryParam("panelOutput")@DefaultValue("-1")double panelOutput,
+			@QueryParam("energyConsumption")@DefaultValue("-1")double energyConsumption) throws InvalidArgumentException{
 		
 		verifyInputs(panelId, batteryId, inverterId, systemCost,
-				inverterEfficiency, panelEfficiency, panelOutput);
+				inverterEfficiency, panelEfficiency, panelOutput,energyConsumption);
 		
 		setComponents(panelId, batteryId, inverterId, postcode,
-				inverterEfficiency, panelOutput, panelCount,panelEfficiency,systemCost);
+				inverterEfficiency, panelOutput, panelCount,panelEfficiency,systemCost,energyConsumption);
 		
 		
 		DecimalFormat df=new DecimalFormat("#.##");
@@ -63,8 +94,9 @@ public class CalculationController {
 		return 	builder.toString();
 	}
 
+	
 	private void setComponents(int panelId, int batteryId, int inverterId,
-			String postcode, double inverterEfficiency, double panelOutput, int panelCount,double panelEfficiency, double systemCost) {
+			String postcode, double inverterEfficiency, double panelOutput, int panelCount,double panelEfficiency, double systemCost, double energyConsumption) {
 		try{
 			//If battery isn't specified, then set a default battery
 			if(batteryId<0){
@@ -96,8 +128,11 @@ public class CalculationController {
 			}else{
 				calculator.setInverterId(inverterId);				
 			}
-			
 			calculator.setLocation(postcode);
+			
+			roiCalculator.setDailyUsage(energyConsumption);
+			roiCalculator.setFeedInTariff(FeedInTariffs.getFeedInTarrif(postcode));
+			roiCalculator.setCostOfElectricity(ElectricityCost.getElectricityCost(postcode));
 			
 		}catch(EntityNotFoundException e){
 			throw new InvalidArgumentException(e.getMessage());
@@ -108,7 +143,7 @@ public class CalculationController {
 
 	private void verifyInputs(int panelId, int batteryId, int inverterId,
 			double systemCost, double inverterEfficiency,
-			double panelEfficiency, double panelOutput) {
+			double panelEfficiency, double panelOutput, double energyConsumption) {
 		String errorMessage="";
 		if(panelId<0 && (panelEfficiency<0||panelOutput<0||systemCost<0)){
 			errorMessage+="PanelId and panelEfficiency, panelOutput or systemCost is not defined \n";
@@ -119,37 +154,44 @@ public class CalculationController {
 		if(inverterId<0&& (inverterEfficiency<0||systemCost<0)){
 			errorMessage+="InverterId and inverterEfficiency or systemCost is not defined \n";
 		}
+		if(energyConsumption<0)
+			errorMessage+="EnergyConsumption must be non negative";
 		if(!errorMessage.equals("")){
 			throw new InvalidArgumentException(errorMessage);
 		}
 	}
 	
-	private void calculateThings(StringBuilder builder,DecimalFormat df){
-		calculator.setTimespan(365);
-		double elProduction=calculator.getElectricityProduction();
-		double tc=calculator.getTotalCost();
-		double roi=calculator.getROI();
-		
-		calculator.setTimespan(30);
-		double elProduction2=calculator.getElectricityProduction();
-		double tc2=calculator.getTotalCost();
-		double roi2=calculator.getROI();
-		
-		calculator.setTimespan(7);
-		double elProduction3=calculator.getElectricityProduction();
-		double tc3=calculator.getTotalCost();
-		double roi3=calculator.getROI();
-		
-		appendParameter(elProduction, elProduction2, elProduction3, "electricityProduction", builder, df);
-		appendParameter(tc, tc2, tc3, "totalCost", builder, df);
-		appendParameter(roi, roi2, roi3, "returnOnInvestment", builder, df);		
+	private void calculateThings(StringBuilder builder,DecimalFormat df){		
+		double[] weekCalc=calculate(7);
+		double[]monthCalc=calculate(30);
+		double[]yearCalc=calculate(365);
+		double[]twentyFiveYear=calculate(365*25);
+		appendParameter(yearCalc[0],monthCalc[0],weekCalc[0],twentyFiveYear[0], "electricityProduction", builder, df);		
+		appendParameter(yearCalc[1],monthCalc[1],weekCalc[1],twentyFiveYear[1], "totalCost", builder, df);
+		appendParameter(yearCalc[2],monthCalc[2],weekCalc[2],twentyFiveYear[2], "returnOnInvestment", builder, df);
+
 	}
 	
-	private void appendParameter(double year,double month,double week, String name, StringBuilder builder,DecimalFormat format){
+	private double[] calculate(int timespan){
+		calculator.setTimespan(timespan);
+		
+		double elProduction=calculator.getElectricityProduction();
+		double tc=calculator.getTotalCost();
+		
+		roiCalculator.setElectricityProduction(elProduction,timespan);
+		roiCalculator.setSystemCost(tc);
+		
+		double roi=calculator.getROI();
+		
+		return new double[]{elProduction,tc,roi};
+	}
+	
+	private void appendParameter(double year,double month,double week,double twentyFive, String name, StringBuilder builder,DecimalFormat format){
 		builder.append("<"+name+">");
 		builder.append("<year>"+format.format(year)+"</year>");
 		builder.append("<month>"+format.format(month)+"</month>");
 		builder.append("<week>"+format.format(week)+"</week>");
+		builder.append("<twentyFiveYears>"+format.format(twentyFive)+"</twentyFiveYears>");
 		builder.append("</"+name+">");
 	}
 }

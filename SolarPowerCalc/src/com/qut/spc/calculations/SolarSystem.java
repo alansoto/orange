@@ -12,7 +12,12 @@ import com.qut.spc.model.Inverter;
 import com.qut.spc.model.Panel;
 import com.qut.spc.postcode.PostcodeUtil;
 import com.qut.spc.weather.DailySunProvider;
-
+/**
+ * Wrapper class for complete solar power systems, including panels, batteries and inverters.
+ * Also contains calculators for ElectricityProduction, ROI and Total cost
+ * @author simen
+ *
+ */
 public class SolarSystem implements SystemCalculationAPI{
 
 	

@@ -14,7 +14,11 @@ import com.qut.spc.model.Battery;
 import com.qut.spc.model.BatteryContainer;
 import com.qut.spc.model.Inverter;
 import com.qut.spc.model.InverterContainer;
-
+/**
+ * Controller that handles requests for batteries
+ * @author simen
+ *
+ */
 @Path("/battery/")
 public class BatteryController {
 	private BatteryFilterAPI db;
@@ -23,6 +27,18 @@ public class BatteryController {
 		db = new BatteryContainer();
 	}
 	
+	/**
+	 * Returns available  batteries based on the given postcode, price range and capacity range.
+	 * When indirectly accessed through a GET request to /battery, an XML representation of the batteries will be returned.
+	 * When access is done via a GET request, price, capacity and postcode will default to 0 if not specified
+	 * @param minPrice
+	 * @param maxPrice
+	 * @param minCapacity
+	 * @param maxCapacity
+	 * @param postcode
+	 * @return
+	 * @throws InvalidArgumentException
+	 */
 	@GET
 	@Produces("application/xml")
 	@Path("/")
