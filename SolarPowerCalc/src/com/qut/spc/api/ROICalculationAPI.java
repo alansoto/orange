@@ -9,11 +9,12 @@ public interface ROICalculationAPI {
 //	 */
 //	void setSystemSize(double size) throws IllegalArgumentException;
 	/**
-	 * Set annual electricity generation from system. E.g. 5kW
-	 * @param annual electricity production in kW
+	 * Sets the electricity generation for the system for the specified number of days. E.g. 5kW
+	 * @param electricity production in kW
+	 * @param numberOfDays number of days to calculate for
 	 * @throws IllegalArgumentException if size is less than zero
 	 */
-	void setAnnualElectricityProduction(double electricity) throws IllegalArgumentException;
+	void setElectricityProduction(double electricity,int numberOfDays) throws IllegalArgumentException;
 	
 	/**
 	 * Set feed-in tariff. E.g. $0.44
@@ -54,5 +55,5 @@ public interface ROICalculationAPI {
 	 * get the annual ROI
 	 * @throws IllegalArgumentException if any of parameter haven't been set
 	 */
-	double getAnnualROI() throws IllegalArgumentException;
+	double getROI() throws IllegalArgumentException;
 }

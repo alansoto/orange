@@ -36,84 +36,84 @@ public class ROICalculatorTest {
 	 */
 	@Test
 	public void test_ROICalculatorParameters() {
-		ROICalulator = new ROICalculator(5, 0.23, 0.44, 10, 1000);
+		ROICalulator = new ROICalculator(5,365, 0.23, 0.44, 10, 1000);
 	}
 	@Test
 	public void test_ROICalculatorParameters_electricity_zero() {
-		ROICalulator = new ROICalculator(0, 0.23, 0.44, 10, 1000);
+		ROICalulator = new ROICalculator(0, 365,0.23, 0.44, 10, 1000);
 	}
 	@Test (expected = IllegalArgumentException.class)
 	public void test_ROICalculatorParameters_electricity_negative() {
-		ROICalulator = new ROICalculator(-5, 0.23, 0.44, 10, 1000);
+		ROICalulator = new ROICalculator(-5, 365,0.23, 0.44, 10, 1000);
 	}
 	@Test
 	public void test_ROICalculatorParameters_electricity_positive() {
-		ROICalulator = new ROICalculator(5, 0.23, 0.44, 10, 1000);
+		ROICalulator = new ROICalculator(5, 365,0.23, 0.44, 10, 1000);
 	}
 	@Test
 	public void test_ROICalculatorParameters_feedInTariff_zero() {
-		ROICalulator = new ROICalculator(5, 0, 0.44, 10, 1000);
+		ROICalulator = new ROICalculator(5, 365,0, 0.44, 10, 1000);
 	}
 	@Test(expected = IllegalArgumentException.class)
 	public void test_ROICalculatorParameters_feedInTariff_negative() {
-		ROICalulator = new ROICalculator(5, -0.23, 0.44, 10, 1000);
+		ROICalulator = new ROICalculator(5, 365,-0.23, 0.44, 10, 1000);
 	}
 	@Test
 	public void test_ROICalculatorParameters_feedInTariff_positive() {
-		ROICalulator = new ROICalculator(5, 0.23, 0.44, 10, 1000);
+		ROICalulator = new ROICalculator(5,365, 0.23, 0.44, 10, 1000);
 	}
 	@Test
 	public void test_ROICalculatorParameters_costOfElectricity_zero() {
-		ROICalulator = new ROICalculator(5, 0.23, 0, 10, 1000);
+		ROICalulator = new ROICalculator(5,365, 0.23, 0, 10, 1000);
 	}
 	@Test(expected = IllegalArgumentException.class)
 	public void test_ROICalculatorParameters_costOfElectricity_negative() {
-		ROICalulator = new ROICalculator(5, 0.23, -0.44, 10, 1000);
+		ROICalulator = new ROICalculator(5,365, 0.23, -0.44, 10, 1000);
 	}
 	@Test
 	public void test_ROICalculatorParameters_costOfElectricity_positive() {
-		ROICalulator = new ROICalculator(5, 0.23, 0.44, 10, 1000);
+		ROICalulator = new ROICalculator(5,365, 0.23, 0.44, 10, 1000);
 	}
 	@Test
 	public void test_ROICalculatorParameters_dailyUsage_zero() {
-		ROICalulator = new ROICalculator(5, 0.23, 0.44, 0, 1000);
+		ROICalulator = new ROICalculator(5,365, 0.23, 0.44, 0, 1000);
 	}
 	@Test(expected = IllegalArgumentException.class)
 	public void test_ROICalculatorParameters_dailyUsage_negative() {
-		ROICalulator = new ROICalculator(5, 0.23, 0.44, -10, 1000);
+		ROICalulator = new ROICalculator(5,365, 0.23, 0.44, -10, 1000);
 	}
 	@Test
 	public void test_ROICalculatorParameters_dailyUsage_positive() {
-		ROICalulator = new ROICalculator(5, 0.23, 0.44, 10, 1000);
+		ROICalulator = new ROICalculator(5,365, 0.23, 0.44, 10, 1000);
 	}
 	@Test
 	public void test_ROICalculatorParameters_systemCost_zero() {
-		ROICalulator = new ROICalculator(5, 0.23, 0.44, 10, 0);
+		ROICalulator = new ROICalculator(5,365, 0.23, 0.44, 10, 0);
 	}
 	@Test(expected = IllegalArgumentException.class)
 	public void test_ROICalculatorParameters_systemCost_negative() {
-		ROICalulator = new ROICalculator(5, 0.23, 0.44, 10, -1000);
+		ROICalulator = new ROICalculator(5,365, 0.23, 0.44, 10, -1000);
 	}
 	@Test
 	public void test_ROICalculatorParameters_systemCost_positive() {
-		ROICalulator = new ROICalculator(5, 0.23, 0.44, 10, 1000);
+		ROICalulator = new ROICalculator(5,365, 0.23, 0.44, 10, 1000);
 	}
 
 	
 	/**
-	 * Test method for {@link com.qut.spc.calculations.ROICalculator#setAnnualElectricityProduction(double)}.
+	 * Test method for {@link com.qut.spc.calculations.ROICalculator#setElectricityProduction(double)}.
 	 */
 	@Test
 	public void test_SetAnnualElectricityProduction_zero() {
-		ROICal.setAnnualElectricityProduction(0);
+		ROICal.setElectricityProduction(0,365);
 	}
 	@Test(expected = IllegalArgumentException.class)
 	public void test_SetAnnualElectricityProduction_negative() {
-		ROICal.setAnnualElectricityProduction(-100);
+		ROICal.setElectricityProduction(-100,365);
 	}
 	@Test
 	public void test_SetAnnualElectricityProduction_positive() {
-		ROICal.setAnnualElectricityProduction(100);
+		ROICal.setElectricityProduction(100,365);
 	}
 
 	/**
@@ -181,12 +181,12 @@ public class ROICalculatorTest {
 	}
 
 	/**
-	 * Test method for {@link com.qut.spc.calculations.ROICalculator#getAnnualROI()}.
+	 * Test method for {@link com.qut.spc.calculations.ROICalculator#getROI()}.
 	 */
 	@Test
 	public void test_GetAnnualROI() {
-		ROICalulator = new ROICalculator(5, 0.23, 0.44, 10, 10000);
-		assertEquals(0.12,ROICalulator.getAnnualROI(),0.01);
+		ROICalulator = new ROICalculator(5,365, 0.23, 0.44, 10, 10000);
+		assertEquals(0.12,ROICalulator.getROI(),0.01);
 	}
 
 }

@@ -9,6 +9,7 @@ import com.qut.spc.api.ROICalculationAPI;
 public class ROICalculator implements ROICalculationAPI {
 	
 	private double electricity, feedInTariff, costOfElectricity, dailyUsage, systemCost;
+	private int numberOfDays;
 
 	public ROICalculator(){
 		this.electricity = -1;
@@ -19,14 +20,15 @@ public class ROICalculator implements ROICalculationAPI {
 	}
 	
 	public ROICalculator (
-			double electricity, 
+			double electricityProduction,int numberOfDays, 
 			double feedInTariff, 
 			double costOfElectricity, 
 			double dailyUsage,  
 			double systemCost) throws IllegalArgumentException {
 		
-		restrictInput(electricity, feedInTariff, costOfElectricity, dailyUsage, systemCost);
-		this.electricity = electricity;
+		restrictInput(electricityProduction, feedInTariff, costOfElectricity, dailyUsage, systemCost);
+		this.electricity = electricityProduction;
+		this.numberOfDays=numberOfDays;
 		this.feedInTariff = feedInTariff;
 		this.costOfElectricity = costOfElectricity;
 		this.dailyUsage = dailyUsage;
@@ -58,10 +60,16 @@ public class ROICalculator implements ROICalculationAPI {
 	}
 
 	@Override
-	public void setAnnualElectricityProduction(double electricity) throws IllegalArgumentException {
+	public void setElectricityProduction(double electricity,int numberOfDays) throws IllegalArgumentException {
 		if (electricity < 0)
 			throw new IllegalArgumentException("Invaild input, " +
 					"the eletricity production parameter shoulbe be more than zero. ");
+		
+		if(numberOfDays<0)
+			throw new IllegalArgumentException("Invaild input, " +
+					"numberOfDays should be non negativ ");
+
+		this.numberOfDays=numberOfDays;
 		this.electricity = electricity;
 	};
 
@@ -97,21 +105,21 @@ public class ROICalculator implements ROICalculationAPI {
 	@Override
 	public void setSystemCost(double cost) throws IllegalArgumentException {
 		if (cost < 0)
-			throw new IllegalArgumentException("Invaildass input, " +
+			throw new IllegalArgumentException("Invaild as input, " +
 					"the parameter of cost of the system shoulbe be more than zero. ");
 		this.systemCost = cost;
 	}
 	
-	public double getAnnualROI () throws IllegalArgumentException{
-		chekcParameter();
-		double annualGainFromSystem, costOfSystem, annualROI;
-		annualGainFromSystem = 365*((dailyUsage*costOfElectricity) + (electricity-dailyUsage)*feedInTariff);
-		annualROI = annualGainFromSystem/systemCost;
-		return annualROI;
+	public double getROI () throws IllegalArgumentException{
+		checkParameters();
+		double gainFromSystem = numberOfDays*(-(dailyUsage*costOfElectricity) + (electricity-dailyUsage)*feedInTariff);
+
+//		double gainFromSystem = numberOfDays*((dailyUsage*costOfElectricity) + (electricity-dailyUsage)*feedInTariff);
+		return gainFromSystem/systemCost;
 		
 	}
 
-	private void chekcParameter() throws IllegalArgumentException{
+	private void checkParameters() throws IllegalArgumentException{
 		if (electricity == -1)
 			throw new IllegalArgumentException("The electricity parameter haven't been set yet. ");
 		else if (feedInTariff == -1)
