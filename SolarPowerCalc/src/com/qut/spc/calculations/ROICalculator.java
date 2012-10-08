@@ -130,7 +130,6 @@ public class ROICalculator implements ROICalculationAPI {
 	}
 
 	public double getRebates() {
-		System.out.println(electricityProduction+"/"+dailyUsage);
 		return (electricityProduction-dailyUsage)*numberOfDays;
 	}
 	
