@@ -11,7 +11,7 @@ import android.os.Bundle;
 public class LocationService implements LocationListener {
 
 	private double latitude;
-	private double longtude;
+	private double longitude;
 	
 	private LocationManager manager;
 
@@ -59,6 +59,10 @@ public class LocationService implements LocationListener {
 		return false;
 	}
 	
+	public void cancelUpdateLocation() {
+		manager.removeUpdates(this);
+	}
+	
 	public void onLocationChanged(Location location) {
 		// Called when a new location is found after the location
 		// manager request
@@ -84,14 +88,14 @@ public class LocationService implements LocationListener {
 		return latitude;
 	}
 
-	public double getLongtude() {
-		return longtude;
+	public double getLongitude() {
+		return longitude;
 	}
 	
 	protected void setLocation(Location loc) {
 		if (loc != null) {
 			latitude = loc.getLatitude();
-			longtude = loc.getLongitude();
+			longitude = loc.getLongitude();
 		}
 	}
 

@@ -5,15 +5,18 @@ import java.util.Arrays;
 import org.xmlpull.v1.XmlPullParser;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
+import android.content.Intent;
+import android.location.Location;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.qut.spc.service.LocationService;
+import com.qut.spc.task.AddressTask;
 import com.qut.spc.task.XmlRequestTask;
 
 /**
@@ -21,11 +24,14 @@ import com.qut.spc.task.XmlRequestTask;
  * @author QuocViet
  */
 public class ElectricityProductionActivity extends Activity {
-	private EditText etSystemCost, etPanelOutput, etPanelEfficiency, etInverterEfficiency;
+	private EditText etSystemCost, etPanelOutput, etPanelEfficiency,
+		etInverterEfficiency, etPostcode;
 	
-	private TextView tvElectricityProduction, tvReturnOnInvestment;
+	private TextView tvElectricityProduction, tvReturnOnInvestment, tvAddress;
 	
 	private View vwResult;
+	
+	private LocationService locationService;
 	
 	private static final String[] DURATIONS = {
 			"week",
@@ -42,11 +48,31 @@ public class ElectricityProductionActivity extends Activity {
 		etPanelOutput = (EditText) findViewById(R.id.panel_output);
 		etPanelEfficiency = (EditText) findViewById(R.id.panel_efficiency);
 		etInverterEfficiency = (EditText) findViewById(R.id.inverter_efficiency);
+		etPostcode = (EditText) findViewById(R.id.postcode);
 		
 		tvElectricityProduction = (TextView) findViewById(R.id.electricity_production);
 		tvReturnOnInvestment = (TextView) findViewById(R.id.return_on_investment);
+		tvAddress = (TextView) findViewById(R.id.address);
 		
 		vwResult = findViewById(R.id.result);
+
+		locationService = new LocationService(this) {
+			@Override
+			public void onLocationChanged(Location location) {
+				super.onLocationChanged(location);
+				if (location != null) {
+					new AddressTask(tvAddress, etPostcode)
+							.execute(getLatitude(), getLongitude());
+				} else {
+					MainActivity.showError(ElectricityProductionActivity.this,
+							"Could not get location");
+				}
+			}
+		};
+		if (locationService.getLatitude() != 0 && locationService.getLongitude() != 0) {
+			new AddressTask(tvAddress, etPostcode)
+					.execute(locationService.getLatitude(), locationService.getLongitude());
+		}
 	}
 	
 	@Override
@@ -54,22 +80,61 @@ public class ElectricityProductionActivity extends Activity {
 		getMenuInflater().inflate(R.menu.activity_electricity_production, menu);
 		return true;
 	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.update_location:
+			updatePostcode();
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
+	    }
+	}
+	
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		switch (requestCode) {
+		case MainActivity.REQUEST_CODE_MAP:
+			if (resultCode == Activity.RESULT_OK && data.getExtras() != null) {
+				double latitude = data.getExtras().getDouble("latitude");
+				double longitude = data.getExtras().getDouble("longitude");
+				if (latitude != 0 && longitude != 0) {
+					new AddressTask(tvAddress, etPostcode)
+							.execute(latitude, longitude);
+				}
+			}
+			break;
+		}
+	}
 
-	public void onCalculateClick(View v) {
+	public void onButtonClick(View v) {
+		switch(v.getId()) {
+		case R.id.btCalculate:
+			onCalculateClick();
+			break;
+		case R.id.btMap:
+			MainActivity.getLocationFromMap(this);
+			break;
+		}
+	}
+	
+	private void onCalculateClick() {
 		if (etSystemCost.getText().length() == 0) {
-			showError("System cost must not be empty");
+			MainActivity.showError(this, "System cost must not be empty");
 			return;
 		}
 		if (etPanelOutput.getText().length() == 0) {
-			showError("Panel output must not be empty");
+			MainActivity.showError(this, "Panel output must not be empty");
 			return;
 		}
 		if (etPanelEfficiency.getText().length() == 0) {
-			showError("Panel efficiency must not be empty");
+			MainActivity.showError(this, "Panel efficiency must not be empty");
 			return;
 		}
 		if (etInverterEfficiency.getText().length() == 0) {
-			showError("Inverter efficiency must not be empty");
+			MainActivity.showError(this, "Inverter efficiency must not be empty");
 			return;
 		}
 		
@@ -82,21 +147,15 @@ public class ElectricityProductionActivity extends Activity {
 		calculate(getString(R.string.app_url) + "/calculate?" + query);
 	}
 	
+	private void updatePostcode() {
+		if (!locationService.updateLocation()) {
+			MainActivity.showError(this, "Could not get location. Please enable your GPS");
+		}
+	}
+	
 	private void calculate(String url) {
 		findViewById(R.id.result).setVisibility(View.GONE);
 		new ElectricityProductionTask().execute(url);
-	}
-	
-	private void showError(String msg) {
-		AlertDialog alert = new AlertDialog.Builder(this).create();
-		alert.setTitle("Error");
-		alert.setMessage(msg);
-		alert.setButton("Ok", new DialogInterface.OnClickListener() {
-			public void onClick(DialogInterface dialog, int which) {
-				// do nothing
-			}
-		});
-		alert.show();
 	}
 	
 	class ElectricityProductionTask extends XmlRequestTask {

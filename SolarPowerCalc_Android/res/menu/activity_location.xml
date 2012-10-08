@@ -1,5 +1,5 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/update_location"
-        android:title="@string/update_location"
+    <item android:id="@+id/save"
+        android:title="@string/set_current_location"
         android:orderInCategory="100" />
 </menu>

@@ -12,6 +12,48 @@
         android:shrinkColumns="1" >
 
         <TableRow
+            android:id="@+id/tableRow9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/textView12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/postcode" />
+
+
+            <EditText
+                android:id="@+id/postcode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="number" />
+
+            <Button
+                android:id="@+id/btMap"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onButtonClick"
+                android:text="@string/map" />
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+
+            <TextView
+                android:id="@+id/address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_span="3" />
+
+        </TableRow>
+
+        <TableRow
             android:id="@+id/tableRow1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" >
@@ -40,6 +82,36 @@
         </TableRow>
 
         <TableRow
+            android:id="@+id/tableRow11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+
+
+            <TextView
+                android:id="@+id/textView13"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/energy_usage" />
+
+
+            <EditText
+                android:id="@+id/energy_usage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/quarterly"
+                android:inputType="number" />
+
+            <TextView
+                android:id="@+id/textView14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/kw" />
+
+        </TableRow>
+
+        <TableRow
             android:id="@+id/tableRow2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" >
@@ -57,11 +129,13 @@
                 android:ems="10"
                 android:inputType="number" />
 
+
             <TextView
                 android:id="@+id/textView4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/w" />
+                android:text="@string/kw" />
+
         </TableRow>
 
         <TableRow
@@ -106,11 +180,14 @@
         </TableRow>
     </TableLayout>
 
+
+
+
     <Button
-        android:id="@+id/calculate"
+        android:id="@+id/btCalculate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="onCalculateClick"
+        android:onClick="onButtonClick"
         android:text="@string/calculate" />
 
     <LinearLayout

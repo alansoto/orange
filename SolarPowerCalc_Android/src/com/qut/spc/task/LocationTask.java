@@ -15,6 +15,11 @@ public class LocationTask extends XmlRequestTask {
 	
 	public static final String MAP_URL = "http://maps.google.com/maps/geo?output=xml";
 	
+	public static String buildUrl(double latitude, double longitude) {
+		return String.format(LocationTask.MAP_URL + "&ll=%f,%f",
+				latitude, longitude);
+	}
+	
 	@Override
 	protected boolean onXmlTag(XmlPullParser parser, int eventType)
 			throws IOException, XmlPullParserException {

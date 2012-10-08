@@ -36,5 +36,13 @@
     <string name="w_per_month">W/month</string>
     <string name="current_address">Current address</string>
     <string name="update">Update</string>
+    <string name="map">Map</string>
+    <string name="title_activity_location">Map</string>
+    <string name="kw">kW</string>
+    <string name="energy_usage">Energy usage</string>
+    <string name="quarterly">Quarterly</string>
+    <string name="set_current_location">Set current location</string>
+    <string name="title_activity_search">Search</string>
+    <string name="update_location">Update location</string>
 
 </resources>
