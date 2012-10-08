@@ -1,4 +1,4 @@
-package com.qut.spc.tariffs;
+package com.qut.spc.feedInTariff;
 
 public class ElectricityCost {
 

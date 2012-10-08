@@ -15,11 +15,11 @@ import com.qut.spc.calculations.ROICalculator;
 import com.qut.spc.calculations.SolarSystem;
 import com.qut.spc.calculations.TotalCostCalculator;
 import com.qut.spc.exceptions.InvalidArgumentException;
+import com.qut.spc.feedInTariff.ElectricityCost;
+import com.qut.spc.feedInTariff.FeedInTariffProvider;
 import com.qut.spc.model.Battery;
 import com.qut.spc.model.Inverter;
 import com.qut.spc.model.Panel;
-import com.qut.spc.tariffs.ElectricityCost;
-import com.qut.spc.tariffs.FeedInTariffs;
 
 /**
  * Jersey public access path for retrieving calculation results
@@ -131,7 +131,7 @@ public class CalculationController {
 			calculator.setLocation(postcode);
 			
 			roiCalculator.setDailyUsage(energyConsumption);
-			roiCalculator.setFeedInTariff(FeedInTariffs.getFeedInTarrif(postcode));
+			roiCalculator.setFeedInTariff(FeedInTariffProvider.getFeedInTariffByPostcode(postcode));
 			roiCalculator.setCostOfElectricity(ElectricityCost.getElectricityCost(postcode));
 			
 		}catch(EntityNotFoundException e){
