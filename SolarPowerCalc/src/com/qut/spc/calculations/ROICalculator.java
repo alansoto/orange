@@ -8,11 +8,11 @@ import com.qut.spc.api.ROICalculationAPI;
  */
 public class ROICalculator implements ROICalculationAPI {
 	
-	private double electricity, feedInTariff, costOfElectricity, dailyUsage, systemCost;
+	private double electricityProduction, feedInTariff, costOfElectricity, dailyUsage, systemCost;
 	private int numberOfDays;
 
 	public ROICalculator(){
-		this.electricity = -1;
+		this.electricityProduction = -1;
 		this.feedInTariff = -1;
 		this.costOfElectricity = -1;
 		this.dailyUsage = -1;
@@ -27,7 +27,7 @@ public class ROICalculator implements ROICalculationAPI {
 			double systemCost) throws IllegalArgumentException {
 		
 		restrictInput(electricityProduction, feedInTariff, costOfElectricity, dailyUsage, systemCost);
-		this.electricity = electricityProduction;
+		this.electricityProduction = electricityProduction;
 		this.numberOfDays=numberOfDays;
 		this.feedInTariff = feedInTariff;
 		this.costOfElectricity = costOfElectricity;
@@ -66,7 +66,7 @@ public class ROICalculator implements ROICalculationAPI {
 					"numberOfDays should be non negativ ");
 
 		this.numberOfDays=numberOfDays;
-		this.electricity = electricity;
+		this.electricityProduction = electricity;
 	};
 
 	@Override
@@ -108,7 +108,7 @@ public class ROICalculator implements ROICalculationAPI {
 	
 	public double getROI () throws IllegalArgumentException{
 		checkParameters();
-		double gainFromSystem = numberOfDays*((dailyUsage*costOfElectricity) + (electricity-dailyUsage)*feedInTariff);
+		double gainFromSystem = numberOfDays*((dailyUsage*costOfElectricity) + (electricityProduction-dailyUsage)*feedInTariff);
 
 //		double gainFromSystem = numberOfDays*((dailyUsage*costOfElectricity) + (electricity-dailyUsage)*feedInTariff);
 		return gainFromSystem/systemCost;
@@ -116,7 +116,7 @@ public class ROICalculator implements ROICalculationAPI {
 	}
 
 	private void checkParameters() throws IllegalArgumentException{
-		if (electricity == -1)
+		if (electricityProduction == -1)
 			throw new IllegalArgumentException("The electricity parameter haven't been set yet. ");
 		else if (feedInTariff == -1)
 			throw new IllegalArgumentException("The feedInTariff parameter haven't been set yet. ");
@@ -127,6 +127,11 @@ public class ROICalculator implements ROICalculationAPI {
 		else if (systemCost == -1)
 			throw new IllegalArgumentException("The systemCost parameter haven't been set yet. ");
 		
+	}
+
+	public double getRebates() {
+		System.out.println(electricityProduction+"/"+dailyUsage);
+		return (electricityProduction-dailyUsage)*numberOfDays;
 	}
 	
 	

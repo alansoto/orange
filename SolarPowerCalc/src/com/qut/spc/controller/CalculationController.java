@@ -170,7 +170,7 @@ public class CalculationController {
 		appendParameter(yearCalc[0],monthCalc[0],weekCalc[0],twentyFiveYear[0], "electricityProduction", builder, df);		
 		appendParameter(yearCalc[1],monthCalc[1],weekCalc[1],twentyFiveYear[1], "totalCost", builder, df);
 		appendParameter(yearCalc[2],monthCalc[2],weekCalc[2],twentyFiveYear[2], "returnOnInvestment", builder, df);
-
+		appendParameter(yearCalc[3], monthCalc[3], weekCalc[3], twentyFiveYear[3], "governmentRebates", builder, df);
 	}
 	
 	private double[] calculate(int timespan){
@@ -183,8 +183,9 @@ public class CalculationController {
 		roiCalculator.setSystemCost(tc);
 		
 		double roi=calculator.getROI();
+		double rebates=roiCalculator.getRebates();
 		
-		return new double[]{elProduction,tc,roi};
+		return new double[]{elProduction,tc,roi,rebates};
 	}
 	
 	private void appendParameter(double year,double month,double week,double twentyFive, String name, StringBuilder builder,DecimalFormat format){

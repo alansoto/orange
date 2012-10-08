@@ -68,4 +68,5 @@ public interface SystemCalculationAPI {
 	void setpanelCount(int panelCount);
 
 	void setSystemCost(double systemCost);
+
 }
