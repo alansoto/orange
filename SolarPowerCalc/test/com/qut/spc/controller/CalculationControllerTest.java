@@ -24,14 +24,14 @@ public class CalculationControllerTest {
 		calculator=mock(SystemCalculationAPI.class);
 
 		controller=new CalculationController(calculator,new ROICalculator());
-		result = controller.getCalculations(32,4,42,24,"BB",2442,21,22,23,3443);
+		result = controller.getCalculations(32,4,42,24,"1234",2442,21,22,23,3443);
 	}
 	
 	@Test
 	public void testCalculations_validInput_PropertiesOnCalculatorIsProperlySet(){		
 		verify(calculator).setBatteryId(42);
 		verify(calculator).setInverterId(24);
-		verify(calculator).setLocation("BB");
+		verify(calculator).setLocation("1234");
 		verify(calculator).setPanelId(32);
 		verify(calculator, times(4)).getElectricityProduction();	
 	}

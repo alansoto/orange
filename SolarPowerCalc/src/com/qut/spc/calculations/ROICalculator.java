@@ -108,7 +108,7 @@ public class ROICalculator implements ROICalculationAPI {
 	
 	public double getROI () throws IllegalArgumentException{
 		checkParameters();
-		double gainFromSystem = numberOfDays*(-(dailyUsage*costOfElectricity) + (electricity-dailyUsage)*feedInTariff);
+		double gainFromSystem = numberOfDays*((dailyUsage*costOfElectricity) + (electricity-dailyUsage)*feedInTariff);
 
 //		double gainFromSystem = numberOfDays*((dailyUsage*costOfElectricity) + (electricity-dailyUsage)*feedInTariff);
 		return gainFromSystem/systemCost;

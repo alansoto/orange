@@ -24,7 +24,7 @@ public class FeedInTariffProvider {
 			if(PostcodeUtil.validatePostcode(location)){
 				String postcode =PostcodeUtil.transformPostcode(location);
 				if(locationToFeedInTariffIntensity.containsKey(postcode))
-					return locationToFeedInTariffIntensity.get(location);			
+					return locationToFeedInTariffIntensity.get(postcode);			
 			}
 			
 			return average(locationToFeedInTariffIntensity.values());

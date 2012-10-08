@@ -137,6 +137,7 @@ public class CalculationController {
 		}catch(EntityNotFoundException e){
 			throw new InvalidArgumentException(e.getMessage());
 		}catch(IllegalArgumentException e){
+			e.printStackTrace();
 			throw new InvalidArgumentException(e.getMessage());
 		}
 	}
