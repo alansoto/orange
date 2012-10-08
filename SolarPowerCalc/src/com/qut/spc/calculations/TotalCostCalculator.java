@@ -20,12 +20,11 @@ public class TotalCostCalculator implements TotalCostCalculationAPI {
 			int panelsQuantity,
 			double batterPrice, 
 			int batteriesQuantity, 
-			double intverterPrice)  
+			double inverterPrice)  
 					throws IllegalArgumentException{
 		
-		restrictInput(panelPrice,panelsQuantity,batterPrice, batteriesQuantity,intverterPrice);
-		double total = (panelPrice*panelsQuantity) + (batterPrice*batteriesQuantity) + panelsQuantity;
-		return total;
+		restrictInput(panelPrice,panelsQuantity,batterPrice, batteriesQuantity,inverterPrice);
+		return (panelPrice*panelsQuantity) + (batterPrice*batteriesQuantity)+inverterPrice;
 	}
 
 	private void restrictInput(double panelPrice, int panelsQuantity,
