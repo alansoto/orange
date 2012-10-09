@@ -1,11 +1,6 @@
 package com.qut.spc;
 
-import java.util.Arrays;
-
-import org.xmlpull.v1.XmlPullParser;
-
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
@@ -17,7 +12,6 @@ import android.widget.TextView;
 
 import com.qut.spc.service.LocationService;
 import com.qut.spc.task.AddressTask;
-import com.qut.spc.task.XmlRequestTask;
 
 /**
  * Activity for Calculation of Electricity Production  
@@ -27,17 +21,9 @@ public class ElectricityProductionActivity extends Activity {
 	private EditText etSystemCost, etPanelOutput, etPanelEfficiency,
 		etInverterEfficiency, etPostcode;
 	
-	private TextView tvElectricityProduction, tvReturnOnInvestment, tvAddress;
-	
-	private View vwResult;
+	private TextView tvAddress;
 	
 	private LocationService locationService;
-	
-	private static final String[] DURATIONS = {
-			"week",
-			"month",
-			"year",
-	};
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -49,12 +35,8 @@ public class ElectricityProductionActivity extends Activity {
 		etPanelEfficiency = (EditText) findViewById(R.id.panel_efficiency);
 		etInverterEfficiency = (EditText) findViewById(R.id.inverter_efficiency);
 		etPostcode = (EditText) findViewById(R.id.postcode);
-		
-		tvElectricityProduction = (TextView) findViewById(R.id.electricity_production);
-		tvReturnOnInvestment = (TextView) findViewById(R.id.return_on_investment);
+
 		tvAddress = (TextView) findViewById(R.id.address);
-		
-		vwResult = findViewById(R.id.result);
 
 		locationService = new LocationService(this) {
 			@Override
@@ -112,7 +94,7 @@ public class ElectricityProductionActivity extends Activity {
 	public void onButtonClick(View v) {
 		switch(v.getId()) {
 		case R.id.btCalculate:
-			onCalculateClick();
+			calculate();
 			break;
 		case R.id.btMap:
 			MainActivity.getLocationFromMap(this);
@@ -120,7 +102,7 @@ public class ElectricityProductionActivity extends Activity {
 		}
 	}
 	
-	private void onCalculateClick() {
+	private void calculate() {
 		if (etSystemCost.getText().length() == 0) {
 			MainActivity.showError(this, "System cost must not be empty");
 			return;
@@ -144,7 +126,7 @@ public class ElectricityProductionActivity extends Activity {
 		query += "panelEfficiency=" + etPanelEfficiency.getText().toString() + "&";
 		query += "inverterEfficiency=" + etInverterEfficiency.getText().toString() + "&";
 
-		calculate(getString(R.string.app_url) + "/calculate?" + query);
+		showCalculationResult(getString(R.string.app_url) + "/calculate?" + query);
 	}
 	
 	private void updatePostcode() {
@@ -153,103 +135,9 @@ public class ElectricityProductionActivity extends Activity {
 		}
 	}
 	
-	private void calculate(String url) {
-		findViewById(R.id.result).setVisibility(View.GONE);
-		new ElectricityProductionTask().execute(url);
-	}
-	
-	class ElectricityProductionTask extends XmlRequestTask {
-		private int depth;
-		private String category;
-		private String type;
-		
-		private double[] electricityProduction;
-		private double[] returnOnInvestment;
-		
-		private ProgressDialog progressDlg;
-		
-		public ElectricityProductionTask() {
-			electricityProduction = new double[DURATIONS.length];
-			returnOnInvestment = new double[DURATIONS.length];
-		}
-
-		@Override
-		protected boolean onXmlTag(XmlPullParser parser, int eventType) {
-			String name;
-			
-			switch (eventType) {
-			case XmlPullParser.START_DOCUMENT:
-				depth = 0;
-				break;
-				
-			case XmlPullParser.START_TAG:
-				++depth;
-				name = parser.getName();
-				if (depth == 2) {
-					category = name;
-					type = null;
-				} else if (depth == 3) {
-					type = name;
-				}
-				break;
-			case XmlPullParser.END_TAG:
-				if (depth == 2) {
-					category = null;
-					type = null;
-				} else if (depth == 3) {
-					type = null;
-				}
-				--depth;
-				break;
-			case XmlPullParser.TEXT:
-				if (depth == 3) {
-					setValue(category, type, parser.getText());
-				}
-				break;
-			}
-			return true;
-		}
-		
-		@Override
-		protected void onPreExecute() {
-			vwResult.setVisibility(View.GONE);
-			progressDlg = ProgressDialog.show(ElectricityProductionActivity.this,
-					"In progress", "Loading...");
-		}
-		
-		@Override
-		protected void onPostExecute(XmlPullParser parser) {
-			if (progressDlg != null) {
-				progressDlg.dismiss();
-				progressDlg = null;
-			}
-			vwResult.setVisibility(View.VISIBLE);
-			// Display in months only
-			tvElectricityProduction.setText(String.valueOf(electricityProduction[1]));
-			tvReturnOnInvestment.setText(String.valueOf(returnOnInvestment[1]));
-		}
-		
-		private void setValue(String category, String type, String value) {
-			if (category == null || type == null) {
-				return;
-			}
-			int durationIdx = Arrays.asList(DURATIONS).indexOf(type);
-			
-			if (durationIdx >= 0 && durationIdx < DURATIONS.length) {
-				double calValue;
-				
-				try {
-					calValue = Double.parseDouble(value);
-				} catch (NumberFormatException ex) {
-					ex.printStackTrace();
-					calValue = 0.0;
-				}
-				if (category.equals("electricityProduction")) {
-					electricityProduction[durationIdx] = calValue;
-				} else if (category.equals("returnOnInvestment")) {
-					returnOnInvestment[durationIdx] = calValue;
-				}
-			}
-		}
+	private void showCalculationResult(String url) {
+		Intent i = new Intent(this, CalculationResultActivity.class);
+		i.putExtra("url", url);
+		startActivity(i);
 	}
 }
