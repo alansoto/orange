@@ -22,6 +22,9 @@ public class CompassView extends View {
 	private String westString;
 	private int textHeight;
 
+	private RectF rollOval = new RectF();
+	private RectF pitchOval = new RectF();
+	
 	private float bearing;
 	float pitch = 0;
 	float roll = 0;
@@ -132,7 +135,7 @@ public class CompassView extends View {
 		int radius = Math.min(px, py);
 		// Draw the background
 		canvas.drawCircle(px, py, radius, circlePaint);
-		// Rotate our perspective so that the ‘top’ is
+		// Rotate our perspective so that the "top" is
 		// facing the current bearing.
 		canvas.save();
 		canvas.rotate(-bearing, px, py);
@@ -189,7 +192,7 @@ public class CompassView extends View {
 		}
 		canvas.restore();
 
-		RectF rollOval = new RectF((mMeasuredWidth / 3) - mMeasuredWidth / 7,
+		rollOval.set((mMeasuredWidth / 3) - mMeasuredWidth / 7,
 				(mMeasuredHeight / 2) - mMeasuredWidth / 7,
 				(mMeasuredWidth / 3) + mMeasuredWidth / 7,
 				(mMeasuredHeight / 2) + mMeasuredWidth / 7);
@@ -201,7 +204,7 @@ public class CompassView extends View {
 		canvas.drawArc(rollOval, 0, 180, false, markerPaint);
 
 		canvas.restore();
-		RectF pitchOval = new RectF((2 * mMeasuredWidth / 3) - mMeasuredWidth
+		pitchOval.set((2 * mMeasuredWidth / 3) - mMeasuredWidth
 				/ 7, (mMeasuredHeight / 2) - mMeasuredWidth / 7,
 				(2 * mMeasuredWidth / 3) + mMeasuredWidth / 7,
 				(mMeasuredHeight / 2) + mMeasuredWidth / 7);
