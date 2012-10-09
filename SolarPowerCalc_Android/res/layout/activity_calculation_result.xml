@@ -41,7 +41,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="2dp"
-                android:text="@string/w_per_month" />
+                android:text="@string/kw_per_year" />
+
         </TableRow>
 
         <TableRow
@@ -62,12 +63,14 @@
                 android:paddingLeft="2dp"
                 android:textStyle="bold" />
 
+
             <TextView
                 android:id="@+id/textView10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="2dp"
-                android:text="@string/months" />
+                android:text="@string/years" />
+
         </TableRow>
 
         <TableRow

@@ -103,9 +103,9 @@ public class CalculationResultActivity extends Activity {
 				progressDlg.dismiss();
 				progressDlg = null;
 			}
-			// Display in months only
-			tvElectricityProduction.setText(String.valueOf(electricityProduction[1]));
-			tvReturnOnInvestment.setText(String.valueOf(returnOnInvestment[1]));
+			// Display in years only
+			tvElectricityProduction.setText(String.valueOf(electricityProduction[2]));
+			tvReturnOnInvestment.setText(String.valueOf(returnOnInvestment[2]));
 		}
 		
 		private void setValue(String category, String type, String value) {
