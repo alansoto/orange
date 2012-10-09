@@ -30,7 +30,8 @@
                 android:id="@+id/postcode"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:inputType="number" />
+                android:inputType="number"
+                android:text="@string/DEF_POSTCODE" />
 
             <Button
                 android:id="@+id/btMap"

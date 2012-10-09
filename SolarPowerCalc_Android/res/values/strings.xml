@@ -44,5 +44,13 @@
     <string name="set_current_location">Set current location</string>
     <string name="title_activity_search">Search</string>
     <string name="update_location">Update location</string>
+    <string name="title_activity_calculation_result">Result</string>
+    <string name="kw_per_year">kW/year</string>
+    <string name="years">Years</string>
+    <string name="government_rebates">Government rebates</string>
+    <string name="aud_per_year">AUD/year</string>
+    <string name="DEF_POSTCODE">4000</string>
+    <string name="percent_sign">%</string>
+    <string name="DEF_EFFICIENCY">100</string>
 
 </resources>

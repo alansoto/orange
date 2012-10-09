@@ -25,13 +25,18 @@ public class LocationActivity extends MapActivity {
 	private MapView mapView;
 	private GeoPoint selectedPoint;
 	private static final String API_KEY_DEBUG = "0TZUBCgVFqPlFD0_tuWFPEooI6FvTfTRE6L9Gng";
+	private static final String API_KEY_RELEASE = "0TZUBCgVFqPmqRiCCpX7Pwa3iV7XGzNDW0Ol62w";
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
 		// fetch the map view from the layout
-		mapView = new MapView(this, API_KEY_DEBUG);
+		if (BuildConfig.DEBUG) {
+			mapView = new MapView(this, API_KEY_DEBUG);
+		} else {
+			mapView = new MapView(this, API_KEY_RELEASE);
+		}
 		// make available zoom controls
 		mapView.setBuiltInZoomControls(true);
 		mapView.setClickable(true);

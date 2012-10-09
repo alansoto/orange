@@ -23,7 +23,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        
+        <activity
+            android:name=".SearchActivity"
+            android:label="@string/title_activity_search" >
+        </activity>
         <activity
             android:name=".SearchResultActivity"
             android:label="@string/title_activity_search_result" >
@@ -31,20 +34,20 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.qut.spc.SearchActivity" />
         </activity>
-        
         <activity
             android:name=".ElectricityProductionActivity"
             android:label="@string/title_activity_electricity_production" >
         </activity>
-
+        <activity
+            android:name=".CalculationResultActivity"
+            android:label="@string/title_activity_calculation_result" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.qut.spc.ElectricityProductionActivity" />
+        </activity>
         <activity
             android:name=".LocationActivity"
             android:label="@string/title_activity_location" >
-        </activity>
-        
-        <activity
-            android:name=".SearchActivity"
-            android:label="@string/title_activity_search" >
         </activity>
         
         <uses-library android:name="com.google.android.maps" />
