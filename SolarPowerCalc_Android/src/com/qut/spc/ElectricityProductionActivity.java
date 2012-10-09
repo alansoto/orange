@@ -19,7 +19,7 @@ import com.qut.spc.task.AddressTask;
  */
 public class ElectricityProductionActivity extends Activity {
 	private EditText etSystemCost, etPanelOutput, etPanelEfficiency,
-		etInverterEfficiency, etPostcode;
+		etInverterEfficiency, etPostcode, etEnergyUsage;
 	
 	private TextView tvAddress;
 	
@@ -30,11 +30,12 @@ public class ElectricityProductionActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_electricity_production);
 		
+		etPostcode = (EditText) findViewById(R.id.postcode);
 		etSystemCost = (EditText) findViewById(R.id.system_cost);
+		etEnergyUsage = (EditText) findViewById(R.id.energy_usage);
 		etPanelOutput = (EditText) findViewById(R.id.panel_output);
 		etPanelEfficiency = (EditText) findViewById(R.id.panel_efficiency);
 		etInverterEfficiency = (EditText) findViewById(R.id.inverter_efficiency);
-		etPostcode = (EditText) findViewById(R.id.postcode);
 
 		tvAddress = (TextView) findViewById(R.id.address);
 
@@ -107,6 +108,10 @@ public class ElectricityProductionActivity extends Activity {
 			MainActivity.showError(this, "System cost must not be empty");
 			return;
 		}
+		if (etEnergyUsage.getText().length() == 0) {
+			MainActivity.showError(this, "Energy usage must not be empty");
+			return;
+		}
 		if (etPanelOutput.getText().length() == 0) {
 			MainActivity.showError(this, "Panel output must not be empty");
 			return;
@@ -122,6 +127,7 @@ public class ElectricityProductionActivity extends Activity {
 		
 		String query = "";
 		query += "systemCost=" + etSystemCost.getText().toString() + "&";
+		query += "energyConsumption =" + etEnergyUsage.getText().toString() + "&";
 		query += "panelOutput=" + etPanelOutput.getText().toString() + "&";
 		query += "panelEfficiency=" + etPanelEfficiency.getText().toString() + "&";
 		query += "inverterEfficiency=" + etInverterEfficiency.getText().toString() + "&";
