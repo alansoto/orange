@@ -132,6 +132,10 @@ public class ElectricityProductionActivity extends Activity {
 		query += "panelEfficiency=" + etPanelEfficiency.getText().toString() + "&";
 		query += "inverterEfficiency=" + etInverterEfficiency.getText().toString() + "&";
 
+		if (etPostcode.getText().length() > 0) {
+			query += "postcode=" + etPostcode.getText().toString() + "&";
+		}
+		
 		showCalculationResult(getString(R.string.app_url) + "/calculate?" + query);
 	}
 	
