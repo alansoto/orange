@@ -13,7 +13,8 @@ import android.widget.TextView;
 import com.qut.spc.task.XmlRequestTask;
 
 public class CalculationResultActivity extends Activity {
-	private TextView tvElectricityProduction, tvReturnOnInvestment;
+	private TextView tvElectricityProduction, tvReturnOnInvestment,
+		tvRebates;
 	
 	private static final String[] DURATIONS = {
 			"week",
@@ -28,6 +29,7 @@ public class CalculationResultActivity extends Activity {
 
 		tvElectricityProduction = (TextView) findViewById(R.id.electricity_production);
 		tvReturnOnInvestment = (TextView) findViewById(R.id.return_on_investment);
+		tvRebates = (TextView) findViewById(R.id.rebates);
 		
 		String url = getIntent().getStringExtra("url");
 		new CalculationResultTask().execute(url);
@@ -46,12 +48,14 @@ public class CalculationResultActivity extends Activity {
 		
 		private double[] electricityProduction;
 		private double[] returnOnInvestment;
+		private double[] rebates;
 		
 		private ProgressDialog progressDlg;
 		
 		public CalculationResultTask() {
 			electricityProduction = new double[DURATIONS.length];
 			returnOnInvestment = new double[DURATIONS.length];
+			rebates = new double[DURATIONS.length];
 		}
 
 		@Override
@@ -106,6 +110,7 @@ public class CalculationResultActivity extends Activity {
 			// Display in years only
 			tvElectricityProduction.setText(String.valueOf(electricityProduction[2]));
 			tvReturnOnInvestment.setText(String.valueOf(returnOnInvestment[2]));
+			tvRebates.setText(String.valueOf(rebates[2]));
 		}
 		
 		private void setValue(String category, String type, String value) {
@@ -127,6 +132,8 @@ public class CalculationResultActivity extends Activity {
 					electricityProduction[durationIdx] = calValue;
 				} else if (category.equals("returnOnInvestment")) {
 					returnOnInvestment[durationIdx] = calValue;
+				} else if (category.equals("governmentRebates")) {
+					rebates[durationIdx] = calValue;
 				}
 			}
 		}
