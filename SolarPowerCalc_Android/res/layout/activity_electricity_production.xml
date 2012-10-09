@@ -22,13 +22,13 @@
                 android:layout_height="wrap_content"
                 android:text="@string/postcode" />
 
-
             <EditText
                 android:id="@+id/postcode"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:inputType="number" />
+                android:inputType="number"
+                android:text="@string/DEF_POSTCODE" />
 
             <Button
                 android:id="@+id/btMap"
@@ -155,7 +155,14 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="@string/from_0_to_100"
-                android:inputType="number" />
+                android:inputType="numberDecimal"
+                android:text="@string/DEF_EFFICIENCY" />
+
+            <TextView
+                android:id="@+id/textView7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/percent_sign" />
 
         </TableRow>
 
@@ -176,7 +183,15 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="@string/from_0_to_100"
-                android:inputType="number" />
+                android:inputType="numberDecimal"
+                android:text="@string/DEF_EFFICIENCY" />
+
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/percent_sign" />
+
         </TableRow>
     </TableLayout>
 

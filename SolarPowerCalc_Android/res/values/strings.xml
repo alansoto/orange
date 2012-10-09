@@ -49,5 +49,8 @@
     <string name="years">Years</string>
     <string name="government_rebates">Government rebates</string>
     <string name="aud_per_year">AUD/year</string>
+    <string name="DEF_POSTCODE">4000</string>
+    <string name="percent_sign">%</string>
+    <string name="DEF_EFFICIENCY">100</string>
 
 </resources>
