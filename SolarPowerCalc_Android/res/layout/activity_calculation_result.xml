@@ -106,4 +106,8 @@
         </TableRow>
     </TableLayout>
 
+    <com.qut.spc.view.CompassView
+        android:id="@+id/compass"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" />
 </LinearLayout>

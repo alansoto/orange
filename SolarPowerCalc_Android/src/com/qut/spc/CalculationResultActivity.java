@@ -6,11 +6,14 @@ import org.xmlpull.v1.XmlPullParser;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.hardware.SensorEvent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.widget.TextView;
 
+import com.qut.spc.service.CompassService;
 import com.qut.spc.task.XmlRequestTask;
+import com.qut.spc.view.CompassView;
 
 public class CalculationResultActivity extends Activity {
 	private TextView tvElectricityProduction, tvReturnOnInvestment,
@@ -22,6 +25,9 @@ public class CalculationResultActivity extends Activity {
 			"year",
 	};
 	
+	private CompassView compassView;
+	private CompassService compassService;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -30,6 +36,15 @@ public class CalculationResultActivity extends Activity {
 		tvElectricityProduction = (TextView) findViewById(R.id.electricity_production);
 		tvReturnOnInvestment = (TextView) findViewById(R.id.return_on_investment);
 		tvRebates = (TextView) findViewById(R.id.rebates);
+		compassView = (CompassView) findViewById(R.id.compass);
+
+		compassService = new CompassService(this) {
+			@Override
+			public void onSensorChanged(SensorEvent e) {
+				super.onSensorChanged(e);
+				updateOrientation(this.getOrientation());
+			}
+		};
 		
 		String url = getIntent().getStringExtra("url");
 		new CalculationResultTask().execute(url);
@@ -41,6 +56,25 @@ public class CalculationResultActivity extends Activity {
 		return true;
 	}
 	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		compassService.registerListener();
+	}
+
+	@Override
+	protected void onStop() {
+		compassService.unregisterListener();
+		super.onStop();
+	}
+
+	private void updateOrientation(float[] orientation) {
+		compassView.setBearing(orientation[0]);
+		compassView.setPitch(orientation[1]);
+		compassView.setRoll(-orientation[2]);
+		compassView.invalidate();
+	}
+
 	class CalculationResultTask extends XmlRequestTask {
 		private int depth;
 		private String category;
