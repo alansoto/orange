@@ -11,7 +11,7 @@ public class ElectricityCalculator implements ElectricityCalculationApi{
 	
 	//from google docs
 	private static final double CORRECTION_FACTOR = 1.25;
-
+    private static final double PANEL_AGE_EFFICIENCY_LOSS = 0.007;
 	@Override
 	public double getElectricityProduction(double dailySun,
 			double inverterEfficiency, double solarPanelEfficiency,
@@ -21,17 +21,21 @@ public class ElectricityCalculator implements ElectricityCalculationApi{
 		//assume that capacity(solarPowerOutput) is peak electricity generation per hour
 		
 		restrictInput(dailySun,inverterEfficiency, solarPanelEfficiency,solarPowerOutput,dailyHours,timespan);
+		int timespanYear = (int)timespan/365; //get how many timespan user want to calculate
 		
-		double actualSunPower = (dailySun/CORRECTION_FACTOR)*solarPanelEfficiency; //a sunlight correction factor of southern hemisphere
-		double electricity;
-		if (solarPowerOutput >= actualSunPower){
-			electricity = actualSunPower*dailyHours*timespan*inverterEfficiency;
-			return electricity;
-		}else {
-			electricity = (solarPowerOutput*dailyHours*timespan)*inverterEfficiency;
-			return electricity;
+		double electricity = 0;
+		for (int i = 0; i < (timespanYear + 1); i ++) {
+			double actualSunPower = (dailySun/CORRECTION_FACTOR)*(solarPanelEfficiency-(PANEL_AGE_EFFICIENCY_LOSS*i)); //a sunlight correction factor of southern hemisphere
+			if (solarPowerOutput >= actualSunPower){
+				if (i != timespanYear) {
+					electricity = electricity +  actualSunPower*dailyHours*365*inverterEfficiency;
+				}
+				else  {
+					electricity = electricity + actualSunPower*dailyHours*(timespan - 365*i)*inverterEfficiency;
+				}
+			}
 		}
-		
+		return electricity;
 	}
 
 	private void restrictInput(double dailySun, double inverterEfficiency,
