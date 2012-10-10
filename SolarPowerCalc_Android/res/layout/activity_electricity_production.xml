@@ -1,9 +1,13 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/LinearLayout1"
+    android:id="@+id/ScrollView1"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:layout_height="match_parent" >
+	
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
 
     <TableLayout
         android:id="@+id/tableLayout1"
@@ -36,7 +40,6 @@
                 android:layout_height="wrap_content"
                 android:onClick="onButtonClick"
                 android:text="@string/map" />
-
         </TableRow>
 
         <TableRow
@@ -44,13 +47,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" >
 
-
             <TextView
                 android:id="@+id/address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_span="3" />
-
         </TableRow>
 
         <TableRow
@@ -86,14 +87,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" >
 
-
-
             <TextView
                 android:id="@+id/textView13"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/energy_usage" />
-
 
             <EditText
                 android:id="@+id/energy_usage"
@@ -108,7 +106,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/kw" />
-
         </TableRow>
 
         <TableRow
@@ -129,13 +126,11 @@
                 android:ems="10"
                 android:inputType="number" />
 
-
             <TextView
                 android:id="@+id/textView4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/kw" />
-
         </TableRow>
 
         <TableRow
@@ -163,7 +158,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/percent_sign" />
-
         </TableRow>
 
         <TableRow
@@ -191,12 +185,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/percent_sign" />
-
         </TableRow>
     </TableLayout>
-
-
-
 
     <Button
         android:id="@+id/btCalculate"
@@ -205,4 +195,5 @@
         android:onClick="onButtonClick"
         android:text="@string/calculate" />
 
-</LinearLayout>
+    </LinearLayout>
+</ScrollView>
