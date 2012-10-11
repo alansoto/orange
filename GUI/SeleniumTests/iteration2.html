@@ -70,21 +70,6 @@
 	<td></td>
 </tr>
 <tr>
-	<td>assertElementPresent</td>
-	<td>div=selectionBattery</td>
-	<td></td>
-</tr>
-<tr>
-	<td>assertElementPresent</td>
-	<td>id=divResultsPanel</td>
-	<td></td>
-</tr>
-<tr>
-	<td>assertElementPresent</td>
-	<td>id=txtResult</td>
-	<td></td>
-</tr>
-<tr>
 	<td>assertText</td>
 	<td>id=divWelcomePanel</td>
 	<td>THIS WIZARD WILL ALLOW YOU TO ACCURATELY CALCULATE ENERGY EFFICIENCY FOR YOUR SOLAR PANEL SYSTEM</td>
@@ -115,7 +100,7 @@
 	<td></td>
 </tr>
 <tr>
-	<td>clickAndWait</td>
+	<td>click</td>
 	<td>id=panel_id_23002</td>
 	<td></td>
 </tr>
@@ -132,7 +117,7 @@
 <tr>
 	<td>assertText</td>
 	<td>id=txtCaptionTitle</td>
-	<td>STEP 3 OF 3: SELECT A BATTERY</td>
+	<td>STEP 2 OF 3: SELECT AN INVERTER</td>
 </tr>
 <tr>
 	<td>assertVisible</td>
@@ -188,6 +173,46 @@
 	<td>assertText</td>
 	<td>id=divResultsPanel</td>
 	<td>YOUR RESULTS PER YEAR PER MONTH PER WEEK ELECTRICITY PRODUCTION (kWh) 51465 4230 987 TOTAL COST (AUD) 230 230 230 RETURN ON INVESTMENT (AUD) 0 0 0</td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>id=tdSolarPanelSelection</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>id=tdInverterSelection</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>id=tdBatterySelection</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertVisible</td>
+	<td>id=tdSolarPanelSelection</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertVisible</td>
+	<td>id=tdInverterSelection</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertVisible</td>
+	<td>id=tdBatterySelection</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>id=divResultsPanel</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertVisible</td>
+	<td>id=divResultsPanel</td>
+	<td></td>
 </tr>
 </tbody>
    </table>
