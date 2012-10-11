@@ -47,8 +47,8 @@ public class CompassService implements SensorEventListener {
 		Sensor magnetfield = manager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
 
 		// Register the listener
-		manager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
-		manager.registerListener(this, magnetfield, SensorManager.SENSOR_DELAY_NORMAL);
+		manager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_UI);
+		manager.registerListener(this, magnetfield, SensorManager.SENSOR_DELAY_UI);
 	}
 	
 	public void unregisterListener() {
