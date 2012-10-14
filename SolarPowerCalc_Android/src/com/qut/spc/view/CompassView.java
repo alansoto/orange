@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
+import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -15,6 +16,7 @@ public class CompassView extends View {
 
 	private Paint markerPaint;
 	private Paint textPaint;
+	private Paint textPaintBold;
 	private Paint circlePaint;
 	private String northString;
 	private String eastString;
@@ -86,9 +88,14 @@ public class CompassView extends View {
 
 		textPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
 		textPaint.setColor(fgColor);
+		
+		textPaintBold = new Paint(Paint.ANTI_ALIAS_FLAG);
+		textPaintBold.setColor(fgColor);
+		Typeface bold = Typeface.create(Typeface.SANS_SERIF, Typeface.BOLD);
+		textPaintBold.setTypeface(bold);
 
-		textHeight = (int) textPaint.measureText("yY");
-
+		textHeight = (int) textPaintBold.measureText("yY");
+		
 		markerPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
 		markerPaint.setColor(fgColor);
 	}
@@ -174,7 +181,7 @@ public class CompassView extends View {
 					dirString = westString;
 					break;
 				}
-				canvas.drawText(dirString, cardinalX, cardinalY, textPaint);
+				canvas.drawText(dirString, cardinalX, cardinalY, textPaintBold);
 			}
 
 			else if (i % 3 == 0) {
@@ -202,6 +209,9 @@ public class CompassView extends View {
 		canvas.save();
 		canvas.rotate(roll, mMeasuredWidth / 3, mMeasuredHeight / 2);
 		canvas.drawArc(rollOval, 0, 180, false, markerPaint);
+		String degree = String.format("%.1f", roll);
+		canvas.drawText(degree, (mMeasuredWidth / 3) - mMeasuredWidth / 21,
+				(mMeasuredHeight / 2) + mMeasuredWidth / 7 + textHeight, textPaint);
 
 		canvas.restore();
 		pitchOval.set((2 * mMeasuredWidth / 3) - mMeasuredWidth
@@ -213,6 +223,10 @@ public class CompassView extends View {
 		markerPaint.setStyle(Paint.Style.FILL);
 		canvas.drawArc(pitchOval, 0 - pitch / 2, 180 + (pitch), false,
 				markerPaint);
+		degree = String.format("%.1f", pitch);
+		canvas.drawText(degree, (2 * mMeasuredWidth / 3) - mMeasuredWidth / 21,
+				(mMeasuredHeight / 2) + mMeasuredWidth / 7 + textHeight, textPaint);
+		
 		markerPaint.setStyle(Paint.Style.STROKE);
 	}
 }

@@ -54,5 +54,8 @@
     <string name="DEF_EFFICIENCY">100</string>
     <string name="efficiency">Efficiency</string>
     <string name="warranty">Warranty</string>
+    <string name="percent_per_year">%/year</string>
+    <string name="optimal_angle">Optimal angle</string>
+    <string name="degree_sign">°</string>
 
 </resources>
