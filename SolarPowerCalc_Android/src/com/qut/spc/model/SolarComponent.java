@@ -10,8 +10,10 @@ public class SolarComponent {
 	private Double price = 0.0;
 	private Double capacity = 0.0;
 	private Double voltage = 0.0;
+	private Double efficiency = 0.0;
 	private String dimensions = "";
 	private String postcode = "";
+	private Double warranty = 0.0;
 	
 	public SolarComponent() {
 		
@@ -73,12 +75,28 @@ public class SolarComponent {
 		this.dimensions = dimensions;
 	}
 	
+	public Double getEfficiency() {
+		return efficiency;
+	}
+	
+	public void setEfficiency(Double efficiency) {
+		this.efficiency = efficiency;
+	}
+	
 	public String getPostcode() {
 		return postcode;
 	}
 	
 	public void setPostcode(String postcode) {
 		this.postcode = postcode;
+	}
+	
+	public Double getWarranty() {
+		return warranty;
+	}
+	
+	public void setWarranty(Double warranty) {
+		this.warranty = warranty;
 	}
 	
 	/**
@@ -90,7 +108,9 @@ public class SolarComponent {
 		map.put("price", price.toString());
 		map.put("capacity", capacity.toString());
 		map.put("voltage", voltage.toString());
+		map.put("efficiency", efficiency.toString());
 		map.put("dimensions", dimensions);
+		map.put("warranty", warranty.toString());
 		map.put("postcode", postcode);
 	}
 }

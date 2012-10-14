@@ -52,5 +52,7 @@
     <string name="DEF_POSTCODE">4000</string>
     <string name="percent_sign">%</string>
     <string name="DEF_EFFICIENCY">100</string>
+    <string name="efficiency">Efficiency</string>
+    <string name="warranty">Warranty</string>
 
 </resources>

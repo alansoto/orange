@@ -93,8 +93,10 @@ public class SearchResultActivity extends Activity {
 			String[] groupFrom = new String[] { "name" };
 			int[] groupTo = new int[] { R.id.component_name };
 
-			String[] childFrom = new String[] { "price", "capacity", "voltage", "dimensions", "postcode" };
-			int[] childTo = new int[] { R.id.price, R.id.capacity, R.id.voltage, R.id.dimensions, R.id.postcode };
+			String[] childFrom = new String[] { "price", "capacity", "voltage", "dimensions",
+					"efficiency", "warranty", "postcode" };
+			int[] childTo = new int[] { R.id.price, R.id.capacity, R.id.voltage, R.id.dimensions,
+					R.id.efficiency, R.id.warranty, R.id.postcode };
 
 			ExpandableListAdapter adapter = new SimpleExpandableListAdapter(
 					SearchResultActivity.this, groupData,
