@@ -19,6 +19,7 @@ function UrlBuilder()
     this.PanelEfficiency = "";
     this.PanelOutput = "";
     this.PanelCount = "";
+    this.EnergyConsumption = "";
 
 
     this.toString = function () {
@@ -74,7 +75,7 @@ function UrlBuilder()
 
             //start calculations of efficiency parameters
             if (this.PanelId != "" && this.InverterId != "" && this.BatteryId != "") {
-                parameters += "&inverterId=" + this.InverterId + "&batteryId=" + this.BatteryId + "&panelId=" + this.PanelId;
+                parameters += "&inverterId=" + this.InverterId + "&batteryId=" + this.BatteryId + "&panelId=" + this.PanelId + "&energyConsumption=" + this.EnergyConsumption;
                 if (this.PanelCount != "") {
                     parameters += "&panelCount=" + this.PanelCount;
                 }
@@ -84,7 +85,7 @@ function UrlBuilder()
             }
             else {
                 if (this.SystemCost != "") {
-                    parameters += "&systemCost=" + this.SystemCost + "&inverterEfficiency=" + this.InverterEfficiency + "&panelEfficiency=" + this.PanelEfficiency + "&panelOutput=" + this.PanelOutput;
+                    parameters += "&systemCost=" + this.SystemCost + "&inverterEfficiency=" + this.InverterEfficiency + "&panelEfficiency=" + this.PanelEfficiency + "&panelOutput=" + this.PanelOutput + "&energyConsumption=" + this.EnergyConsumption ;
                 }
             }
 

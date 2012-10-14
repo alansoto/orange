@@ -7,16 +7,20 @@ function getResults() {
     var url = new UrlBuilder();
 
     //use this for real ajax calls, otherwise comment
-    /*
     url.GoogleAppsEngineBaseUrl = globalVars.GoogleAppsEngineBaseUrl; 
     url.Operation = "calculate";
     url.BatteryId = ($('#selectionBattery').text()).replace("battery_id_", "");
     url.PanelId = ($('#selectionSolarPanel').text()).replace("panel_id_", "");
     url.InverterId = ($('#selectionInverter').text()).replace("inverter_id_", "");
-    */
+    url.Postcode = $('#txtUserPostcode').val();
+    url.EnergyConsumption = $('#txtAverageConsumption').val();
+    
+    
 
+    /*
     //use this for test calls, otherwise comment
     url.GoogleAppsEngineBaseUrl = "http://orange.alansoto.com/TestCalculate.xml";
+    */
     
     
 
