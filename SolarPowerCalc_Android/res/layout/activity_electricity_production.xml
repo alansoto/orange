@@ -70,7 +70,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:inputType="number" >
+                android:inputType="number"
+                android:text="@string/DEF_SYSTEMCOST" >
 
                 <requestFocus />
             </EditText>
@@ -99,13 +100,14 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="@string/quarterly"
-                android:inputType="number" />
+                android:inputType="number"
+                android:text="@string/DEF_ENERGYUSAGE" />
 
             <TextView
                 android:id="@+id/textView14"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/kw" />
+                android:text="@string/kwh" />
         </TableRow>
 
         <TableRow
@@ -124,7 +126,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:inputType="number" />
+                android:inputType="number"
+                android:text="@string/DEF_PANELOUTPUT" />
 
             <TextView
                 android:id="@+id/textView4"

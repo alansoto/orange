@@ -127,7 +127,7 @@ public class ElectricityProductionActivity extends Activity {
 		
 		String query = "";
 		query += "systemCost=" + etSystemCost.getText().toString() + "&";
-		query += "energyConsumption =" + etEnergyUsage.getText().toString() + "&";
+		query += "energyConsumption=" + etEnergyUsage.getText().toString() + "&";
 		query += "panelOutput=" + etPanelOutput.getText().toString() + "&";
 		query += "panelEfficiency=" + etPanelEfficiency.getText().toString() + "&";
 		query += "inverterEfficiency=" + etInverterEfficiency.getText().toString() + "&";
