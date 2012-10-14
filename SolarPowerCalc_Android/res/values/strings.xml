@@ -57,5 +57,9 @@
     <string name="percent_per_year">%/year</string>
     <string name="optimal_angle">Optimal angle</string>
     <string name="degree_sign">°</string>
+    <string name="DEF_SYSTEMCOST">5000</string>
+    <string name="DEF_ENERGYUSAGE">2000</string>
+    <string name="kwh">kWh</string>
+    <string name="DEF_PANELOUTPUT">10</string>
 
 </resources>
