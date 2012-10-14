@@ -22,19 +22,19 @@ public class ElectricityCalculatorTest {
 	public void getElectricityProduction_sunPowerOver () {
 		double electricity = calculator.getElectricityProduction(100.0,0.8,0.7,120.0,4.0,1.0);
 		//System.out.println(electricity);
-		assertEquals(179.20,electricity,0.01);
+		assertEquals(256.0,electricity,0.01);
 	}
 	
 	@Test
 	public void getElectricityProduction_solarPanelOver () {
 		double electricity = calculator.getElectricityProduction(120.0,0.8,0.7,100.0,4.0,1.0);
-		assertEquals(215.04,electricity,0.01);
+		assertEquals(307.20,electricity,0.01);
 	}
 	
 	@Test
 	public void getElectricityProduction_solarSunPowerEqual () {
 		double electricity = calculator.getElectricityProduction(100.0,0.8,0.7,100.0,4.0,1.0);
-		assertEquals(179.20,electricity,0.01);
+		assertEquals(256.0,electricity,0.01);
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
@@ -52,7 +52,7 @@ public class ElectricityCalculatorTest {
 	@Test
 	public void restrictInput_normalDailySun () {
 		double electricity = calculator.getElectricityProduction(100.0,0.8,0.7,120.0,4.0,1.0);
-		assertEquals(179.20,electricity,0.01);
+		assertEquals(256.0,electricity,0.01);
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
@@ -70,7 +70,7 @@ public class ElectricityCalculatorTest {
 	@Test
 	public void restrictInput_oneinverterEfficiency () {
 		ElectricityCalculator calculator = new ElectricityCalculator();
-		assertEquals(224.0, calculator.getElectricityProduction(100.0,1,0.7,100.0,4.0,1.0), 0.01);
+		assertEquals(320.0, calculator.getElectricityProduction(100.0,1,0.7,100.0,4.0,1.0), 0.01);
 	}
 	
 	@Test
@@ -82,7 +82,7 @@ public class ElectricityCalculatorTest {
 	@Test
 	public void restrictInput_normalinverterEfficiency () {
 		double electricity = calculator.getElectricityProduction(100.0,0.8,0.7,120.0,4.0,1.0);
-		assertEquals(179.20,electricity,0.01);
+		assertEquals(256,electricity,0.01);
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
@@ -106,13 +106,13 @@ public class ElectricityCalculatorTest {
 	@Test
 	public void restrictInput_zeroSolarPanelEfficiency () {
 		ElectricityCalculator calculator = new ElectricityCalculator();
-		assertEquals(0.0, calculator.getElectricityProduction(100.0,0.8,0.0,100.0,4.0,1.0),0.01);
+		assertEquals(256.0, calculator.getElectricityProduction(100.0,0.8,0.0,100.0,4.0,1.0),0.01);
 	}
 	
 	@Test
 	public void restrictInput_normalSolarPanelEfficiency () {
 		double electricity = calculator.getElectricityProduction(100.0,0.8,0.7,120.0,4.0,1.0);
-		assertEquals(179.20,electricity,0.01);
+		assertEquals(256.0,electricity,0.01);
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
@@ -130,7 +130,7 @@ public class ElectricityCalculatorTest {
 	@Test
 	public void restrictInput_normalSolarPowerOutput () {
 		double electricity = calculator.getElectricityProduction(100.0,0.8,0.7,120.0,4.0,1.0);
-		assertEquals(179.20,electricity,0.01);
+		assertEquals(256.0,electricity,0.01);
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
@@ -148,7 +148,7 @@ public class ElectricityCalculatorTest {
 	@Test
 	public void restrictInput_normalDailyHours () {
 		double electricity = calculator.getElectricityProduction(100.0,0.8,0.7,120.0,4.0,1.0);
-		assertEquals(179.20,electricity,0.01);
+		assertEquals(256.0,electricity,0.01);
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
@@ -166,7 +166,7 @@ public class ElectricityCalculatorTest {
 	@Test
 	public void restrictInput_normalTimespan () {
 		double electricity = calculator.getElectricityProduction(100.0,0.8,0.7,120.0,4.0,1.0);
-		assertEquals(179.20,electricity,0.01);
+		assertEquals(256.0,electricity,0.01);
 	}
 	
 	

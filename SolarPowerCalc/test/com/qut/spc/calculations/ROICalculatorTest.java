@@ -186,7 +186,7 @@ public class ROICalculatorTest {
 	@Test
 	public void test_GetAnnualROI() {
 		ROICalulator = new ROICalculator(5,365, 0.23, 0.44, 10, 10000);
-		assertEquals(0.12,ROICalulator.getROI(),0.01);
+		assertEquals(0.08,ROICalulator.getROI(),0.01);
 	}
 
 }

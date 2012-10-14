@@ -34,6 +34,13 @@ public class ElectricityCalculator implements ElectricityCalculationApi{
 				else  {
 					electricity = electricity + actualSunPower*dailyHours*(timespan - 365*i)*inverterEfficiency;
 				}
+			} else {
+				if (i != timespanYear) {
+					electricity = electricity +  solarPowerOutput*dailyHours*365*inverterEfficiency;
+				}
+				else  {
+					electricity = electricity + solarPowerOutput*dailyHours*(timespan - 365*i)*inverterEfficiency;
+				}
 			}
 		}
 		return electricity;
