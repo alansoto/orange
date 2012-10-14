@@ -135,9 +135,11 @@
         <!-- start: wizard selection steps -->
         <div class="grid_9">
             <div id="divSelectSolarPanel">
-                <h4>Please select a component from the list below. You can also narrow your results by using the filters on the left.</h4>
-                <p>Don't have that component?<br />
-                <a href="#" id="linkManualInpsut"><strong>Input Details Manually</strong></a> </p>
+                <div style="display:none;">
+                    <h4>Please select a component from the list below. You can also narrow your results by using the filters on the left.</h4>
+                    <p>Don't have that component?<br />
+                    <a href="#" id="linkManualInpsut"><strong>Input Details Manually</strong></a> </p>
+                </div>
             </div>
             <div id="divSelectInverter">
             </div>
@@ -181,7 +183,7 @@
                     <td><h2 id="governmentRebates_month">NA</h2></td>
                     <td><h2 id="governmentRebates_week">NA</h2></td>
                 </tr>
-                <tr>
+                <tr style="display:none;">
                     <td><h4>OPTIMAL PANEL ANGLE (DEGREES)</h4></td>
                     <td><h2 id="optimalFacingAngle_summer">NA</h2><br />SUMMER</td>
                     <td><h2 id="optimalFacingAngle_winter">NA</h2><br />WINTER</td>
