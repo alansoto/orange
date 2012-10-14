@@ -17,13 +17,15 @@ import com.qut.spc.view.CompassView;
 
 public class CalculationResultActivity extends Activity {
 	private TextView tvElectricityProduction, tvReturnOnInvestment,
-		tvRebates;
+		tvRebates, tvAngle;
 	
 	private static final String[] DURATIONS = {
 			"week",
 			"month",
 			"year",
 	};
+	
+	private int latitude;
 	
 	private CompassView compassView;
 	private CompassService compassService;
@@ -36,6 +38,7 @@ public class CalculationResultActivity extends Activity {
 		tvElectricityProduction = (TextView) findViewById(R.id.electricity_production);
 		tvReturnOnInvestment = (TextView) findViewById(R.id.return_on_investment);
 		tvRebates = (TextView) findViewById(R.id.rebates);
+		tvAngle = (TextView) findViewById(R.id.angle);
 		compassView = (CompassView) findViewById(R.id.compass);
 
 		compassService = new CompassService(this) {
@@ -45,6 +48,8 @@ public class CalculationResultActivity extends Activity {
 				updateOrientation(this.getOrientation());
 			}
 		};
+		
+		latitude = getIntent().getIntExtra("latitude", -27);
 		
 		String url = getIntent().getStringExtra("url");
 		new CalculationResultTask().execute(url);
@@ -73,6 +78,28 @@ public class CalculationResultActivity extends Activity {
 		compassView.setPitch(orientation[1]);
 		compassView.setRoll(-orientation[2]);
 		compassView.invalidate();
+	}
+	
+	/**
+	 * @see http://exploringgreentechnology.com/solar-energy/s/best-angle-for-solar-panels/
+	 */
+	public int getOptimalAngle() {
+		if (latitude < 0) {
+			latitude = -latitude;
+		}
+		if (latitude > 40) {
+			return latitude + 20;
+		}
+		if (latitude > 35) {
+			return latitude + 15;
+		}
+		if (latitude > 30) {
+			return latitude + 10;
+		}
+		if (latitude > 25) {
+			return latitude + 5;
+		}
+		return 15;
 	}
 
 	class CalculationResultTask extends XmlRequestTask {
@@ -145,6 +172,7 @@ public class CalculationResultActivity extends Activity {
 			tvElectricityProduction.setText(String.valueOf(electricityProduction[2]));
 			tvReturnOnInvestment.setText(String.valueOf(returnOnInvestment[2]));
 			tvRebates.setText(String.valueOf(rebates[2]));
+			tvAngle.setText(String.valueOf(CalculationResultActivity.this.getOptimalAngle()));
 		}
 		
 		private void setValue(String category, String type, String value) {

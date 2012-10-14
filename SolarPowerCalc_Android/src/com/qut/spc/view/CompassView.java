@@ -209,11 +209,12 @@ public class CompassView extends View {
 		canvas.save();
 		canvas.rotate(roll, mMeasuredWidth / 3, mMeasuredHeight / 2);
 		canvas.drawArc(rollOval, 0, 180, false, markerPaint);
+		canvas.restore();
+		
 		String degree = String.format("%.1f", roll);
 		canvas.drawText(degree, (mMeasuredWidth / 3) - mMeasuredWidth / 21,
 				(mMeasuredHeight / 2) + mMeasuredWidth / 7 + textHeight, textPaint);
-
-		canvas.restore();
+		
 		pitchOval.set((2 * mMeasuredWidth / 3) - mMeasuredWidth
 				/ 7, (mMeasuredHeight / 2) - mMeasuredWidth / 7,
 				(2 * mMeasuredWidth / 3) + mMeasuredWidth / 7,
