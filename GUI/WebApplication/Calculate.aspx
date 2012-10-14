@@ -18,11 +18,16 @@
                 
 
         <!-- start: Your System -->
-        <div class="grid_12" id="divUserSelection">
-            <h2>Your System</h2>
-            <input type="text" id="currentComponent" name="currentComponent" />
+        <div class="grid_12" id="divSelectionTabs">
+            <input type="text" id="currentComponent" name="currentComponent" style="display:none;" />
             <table class="your-system">
                 <tr>
+                    <td id="tdEnergyUserProfile">
+                        <h4>Your Details</h4>
+                        <p id="selectionUserPostcode" style="display:none;"></p>
+                        <p id="selectionAverageConsumption" style="display:none;"></p>
+                        <p id="detailsUserAverageConsumption"></p>
+                    </td>
                     <td id="tdSolarPanelSelection">
                         <h4>Solar Panel</h4>
                         <p id="selectionSolarPanel" style="display:none;"></p>
@@ -48,6 +53,27 @@
         <h2 class="grid_12" id="txtCaptionTitle" style="margin-top:30px; margin-bottom:30px;"></h2>
         <div class="clear"></div>
         <!-- end: title caption -->
+
+        <!-- start: user details -->
+        <div class="prefix_3 grid_6 suffix_3" id="divEnergyUserProfile" >
+            <p>
+            <strong>YOUR POSTCODE:</strong><br />
+            <em>Please input your postcode, e.g. 4121</em><br />
+            <input type="text"  style="width:150px;" id="txtUserPostcode" />
+            </p>
+            <p>
+            
+            <strong>QUARTERLY AVERAGE ENERGY CONSUMPTION:</strong><br />
+            <em>Must be in kWh (kilowatt-hour). You can find it in your electricity bill, e.g. 1650</em>
+            <br />
+            <input type="text"  style="width:150px;" id="txtAverageConsumption" />
+            </p>
+            <input type="submit" value="CONTINUE" style="float: right" id="btnSubmitEnergyProfile" />
+
+            
+        </div>
+        <div class="clear"></div>
+        <!-- end: user details -->
         
         <!-- start: filter results area -->
         <div class="grid_3" id="divFilterResults">
@@ -106,25 +132,25 @@
         </div>
         <!-- end: filter results area -->
 
-        <!-- start: wizard steps -->
+        <!-- start: wizard selection steps -->
         <div class="grid_9">
-            <div id="divStepOne">
+            <div id="divSelectSolarPanel">
                 <h4>Please select a component from the list below. You can also narrow your results by using the filters on the left.</h4>
                 <p>Don't have that component?<br />
                 <a href="#" id="linkManualInpsut"><strong>Input Details Manually</strong></a> </p>
             </div>
-            <div id="divStepTwo">
+            <div id="divSelectInverter">
             </div>
-            <div id="divStepThree">
+            <div id="divSelectBattery">
             </div>
         </div>
         <div class="clear"></div>
         <!-- end: wizard steps -->
 
-        <!-- start: results panel -->
+        <!-- start: results selectionpanel -->
         <div id="divResultsPanel" class="grid_12">
             <h3>YOUR RESULTS</h3>
-            <table>
+            <table id="wizardResults">
                 <tr>
                     <td></td>
                     <td>PER YEAR</td>
@@ -132,22 +158,33 @@
                     <td>PER WEEK</td>
                 </tr>
                 <tr>
-                    <td><h4>ELECTRICITY PRODUCTION (WATTS)</h4></td>
-                    <td><h2 id="electricity_year">12</h2></td>
-                    <td><h2 id="electricity_month">12</h2></td>
-                    <td><h2 id="electricity_week">12</h2></td>
+                    <td><h4>ELECTRICITY PRODUCTION (kWh)</h4></td>
+                    <td><h2 id="electricity_year">NA</h2></td>
+                    <td><h2 id="electricity_month">NA</h2></td>
+                    <td><h2 id="electricity_week">NA</h2></td>
                 </tr>
                 <tr>
                     <td><h4>TOTAL COST (AUD)</h4></td>
-                    <td><h2 id="totalCost_year">12</h2></td>
-                    <td><h2 id="totalCost_month">12</h2></td>
-                    <td><h2 id="totalCost_week">12</h2></td>
+                    <td><h2 id="totalCost_year">NA</h2></td>
+                    <td><h2 id="totalCost_month">NA</h2></td>
+                    <td><h2 id="totalCost_week">NA</h2></td>
                 </tr>
                 <tr>
                     <td><h4>RETURN ON INVESTMENT (AUD)</h4></td>
-                    <td><h2 id="roi_year">12</h2></td>
-                    <td><h2 id="roi_month">12</h2></td>
-                    <td><h2 id="roi_week">12</h2></td>
+                    <td><h2 id="roi_year">NA</h2></td>
+                    <td><h2 id="roi_month">NA</h2></td>
+                    <td><h2 id="roi_week">NA</h2></td>
+                </tr>
+                <tr>
+                    <td><h4>EXPECTED GOVERNMENT REBATES (AUD)</h4></td>
+                    <td><h2 id="governmentRebates_year">NA</h2></td>
+                    <td><h2 id="governmentRebates_month">NA</h2></td>
+                    <td><h2 id="governmentRebates_week">NA</h2></td>
+                </tr>
+                <tr>
+                    <td><h4>OPTIMAL PANEL ANGLE (DEGREES)</h4></td>
+                    <td><h2 id="optimalFacingAngle_summer">NA</h2><br />SUMMER</td>
+                    <td><h2 id="optimalFacingAngle_winter">NA</h2><br />WINTER</td>
                 </tr>
                 
             </table>
@@ -162,10 +199,10 @@
     <script src="js/orange/HelperFunctions.js" type="text/javascript"></script>
     <script src="js/orange/SunCalculatorUrlBuilder.js" type="text/javascript"></script>
     <script src="js/libs/jExpand.js" type="text/javascript"></script>
-    
+    <script src="js/orange/Calculate.aspx.js" type="text/javascript"></script>
     <!-- start: steps set up -->
     <script type="text/javascript">
-        function stepZero() {
+        function resetWizard() {
             //scroll to beggining of the page
             window.scrollTo(0, 0);
 
@@ -182,7 +219,11 @@
             $('#selectionBattery').text('NOT SELECTED');
             $('#detailsSolarPanel').text('');
             $('#selectionBattery').text('');
-            $('#selectionBattery').text('');
+            $('#selectionnverter').text('');
+            $('#txtUserPostcode').val('');
+            $('#txtAverageConsumption').val('');
+
+
             
 
             //clear textbox for currentComponent
@@ -190,38 +231,82 @@
 
             //hide and display appropriate tabs
             $('#divWelcomePanel').show();
-            $('#divStepOne').hide();
-            $('#divStepTwo').hide();
-            $('#divStepThree').hide();
+            $('#divEnergyUserProfile').hide();
+            $('#divSelectSolarPanel').hide();
+            $('#divSelectInverter').hide();
+            $('#divSelectBattery').hide();
             $('#divResultsPanel').hide();
             $('#txtCaptionTitle').hide();
             $('#divFilterResults').hide();
-            $('#divUserSelection').hide();
+            $('#divSelectionTabs').hide();
 
             //styles for "your system" area
+            $('#tdEnergyUserProfile').attr('class', '').addClass('not-selected');
             $('#tdSolarPanelSelection').attr('class', '').addClass('not-selected');
             $('#tdInverterSelection').attr('class', '').addClass('not-selected');
             $('#tdBatterySelection').attr('class', '').addClass('not-selected');
-            
+
         }
 
-        function stepOne() {
+        function stepEnergyUserProfile() {
             //hide and display appropriate tabs
-            $('#divUserSelection').show();
+            $('#divSelectionTabs').show();
             $('#divWelcomePanel').hide();
-            $('#divStepOne').show();
-            $('#divStepTwo').hide();
-            $('#divStepThree').hide();
+            $('#divEnergyUserProfile').show();
+            $('#divSelectSolarPanel').hide();
+            $('#divSelectInverter').hide();
+            $('#divSelectBattery').hide();
+            $('#divResultsPanel').hide();
+            $('#txtCaptionTitle').show();
+            $('#divFilterResults').hide();
+
+            //scroll to beggining of the page
+            $('html, body').animate({
+                scrollTop: $("#divSelectionTabs").offset().top
+            }, 2000);
+
+            //reset 'Your System' area
+            $('#detailsUserAverageConsumption').text('CURRENTLY SELECTING');
+            $('#detailsSolarPanel').text('');
+            $('#detailsInverter').text('');
+            $('#detailsBattery').text('');
+
+
+
+
+            //set up textbox for currentComponent
+            $('#currentComponent').val('panel');
+
+            //set up caption
+            $('#txtCaptionTitle').text('STEP 1 OF 4: YOUR LOCATION AND ENERGY CONSUMPTION');
+
+            //styles for "your system" area
+            $('#tdEnergyUserProfile').attr('class', '').addClass('selecting');
+            $('#tdSolarPanelSelection').attr('class', '').addClass('not-selected');
+            $('#tdInverterSelection').attr('class', '').addClass('not-selected');
+            $('#tdBatterySelection').attr('class', '').addClass('not-selected');
+        }
+        
+
+        function stepSolarPanelSelection() {
+            //hide and display appropriate tabs
+            $('#divSelectionTabs').show();
+            $('#divWelcomePanel').hide();
+            $('#divEnergyUserProfile').hide();
+            $('#divSelectSolarPanel').show();
+            $('#divSelectInverter').hide();
+            $('#divSelectBattery').hide();
             $('#divResultsPanel').hide();
             $('#txtCaptionTitle').show();
             $('#divFilterResults').show();
 
             //scroll to beggining of the page
             $('html, body').animate({
-                scrollTop: $("#divUserSelection").offset().top
+                scrollTop: $("#divSelectionTabs").offset().top
             }, 2000);
 
             //reset 'Your System' area
+
             $('#detailsSolarPanel').text('CURRENTLY SELECTING');
             $('#detailsInverter').text('');
             $('#detailsBattery').text('');
@@ -233,9 +318,10 @@
             $('#currentComponent').val('panel');
 
             //set up caption
-            $('#txtCaptionTitle').text('STEP 1 OF 3: SELECT A SOLAR PANEL');
+            $('#txtCaptionTitle').text('STEP 2 OF 4: SELECT A SOLAR PANEL');
 
             //styles for "your system" area
+            $('#tdEnergyUserProfile').attr('class', '').addClass('selected');
             $('#tdSolarPanelSelection').attr('class','').addClass('selecting');
             $('#tdInverterSelection').attr('class', '').addClass('not-selected');
             $('#tdBatterySelection').attr('class', '').addClass('not-selected');
@@ -244,13 +330,13 @@
             
         }
 
-        function stepTwo() {
+        function stepInverterSelection() {
             //hide and display appropriate tabs
             $('#divWelcomePanel').hide('slideRight');
-            $('#divUserSelection').show('slideLeft');
-            $('#divStepOne').hide('slideRight');
-            $('#divStepTwo').show('slideLeft');
-            $('#divStepThree').hide('slideRight');
+            $('#divSelectionTabs').show('slideLeft');
+            $('#divSelectSolarPanel').hide('slideRight');
+            $('#divSelectInverter').show('slideLeft');
+            $('#divSelectBattery').hide('slideRight');
             $('#divResultsPanel').hide('slideRight');
             $('#txtCaptionTitle').show('slideLeft');
             $('#divFilterResults').show('slideLeft');
@@ -258,7 +344,7 @@
 
             //scroll to beggining of the page
             $('html, body').animate({
-                scrollTop: $("#divUserSelection").offset().top
+                scrollTop: $("#divSelectionTabs").offset().top
             }, 2000);
 
             //reset 'Your System' area
@@ -270,7 +356,7 @@
             $('#currentComponent').val('inverter');
             
             //set up text
-            $('#txtCaptionTitle').text('STEP 2 OF 3: SELECT AN INVERTER');
+            $('#txtCaptionTitle').text('STEP 3 OF 4: SELECT AN INVERTER');
 
             //styles for "your system" area
             $('#tdSolarPanelSelection').attr('class', '').addClass('selected');
@@ -279,20 +365,20 @@
             
         }
 
-        function stepThree() {
+        function stepBatterySelection() {
             //hide and display appropriate tabs
             $('#divWelcomePanel').hide('slideRight');
-            $('#divUserSelection').show('slideLeft');
-            $('#divStepOne').hide('slideRight');
-            $('#divStepTwo').hide('slideRight');
-            $('#divStepThree').show('slideLeft');
+            $('#divSelectionTabs').show('slideLeft');
+            $('#divSelectSolarPanel').hide('slideRight');
+            $('#divSelectInverter').hide('slideRight');
+            $('#divSelectBattery').show('slideLeft');
             $('#divResultsPanel').hide('slideRight');
             $('#txtCaptionTitle').show('slideLeft');
             $('#divFilterResults').show('slideLeft');
 
             //scroll to beggining of the page
             $('html, body').animate({
-                scrollTop: $("#divUserSelection").offset().top
+                scrollTop: $("#divSelectionTabs").offset().top
             }, 2000);
 
             $('#currentComponent').val('battery');
@@ -303,7 +389,7 @@
             $('#detailsBattery').text('CURRENTLY SELECTING');
 
             //set up caption
-            $('#txtCaptionTitle').text('STEP 3 OF 3: SELECT A BATTERY');
+            $('#txtCaptionTitle').text('STEP 4 OF 4: SELECT A BATTERY');
 
             //styles for "your system" area
             $('#tdSolarPanelSelection').attr('class', '').addClass('selected');
@@ -316,17 +402,17 @@
         function stepResults() {
             //hide and display appropriate tabs
             $('#divWelcomePanel').hide('slideRight');
-            $('#divUserSelection').show('slideLeft');
-            $('#divStepOne').hide('slideRight');
-            $('#divStepTwo').hide('slideRight');
-            $('#divStepThree').hide('slideRight');
+            $('#divSelectionTabs').show('slideLeft');
+            $('#divSelectSolarPanel').hide('slideRight');
+            $('#divSelectInverter').hide('slideRight');
+            $('#divSelectBattery').hide('slideRight');
             $('#divResultsPanel').show('slideLeft');
             $('#txtCaptionTitle').hide('slideRight');
             $('#divFilterResults').hide('slideRight');
 
             //scroll to beggining of the page
             $('html, body').animate({
-                scrollTop: $("#divUserSelection").offset().top
+                scrollTop: $("#divSelectionTabs").offset().top
             }, 2000);
 
             $('#currentComponent').val('results');
@@ -350,13 +436,13 @@
 
         $(document).ready(function () {
             //reset form
-            stepZero();
-
+            resetWizard();
+            
 
             //create variables to make subsequent ajax calls
             var urlBuilder;
             var h = new HelperFunctions();
-
+            
             //set variables to fill panel table
             urlBuilder = new UrlBuilder();
             urlBuilder.GoogleAppsEngineBaseUrl = globalVars.GoogleAppsEngineBaseUrl;
@@ -378,7 +464,7 @@
             urlBuilder.ComponentName = 'battery'
             //make ajax call to fill battery table
             h.ajaxCallViaProxy(createBatteryTable, genericAjaxErrorHandler, urlBuilder.toString());
-
+            
 
         });
     </script>
@@ -544,8 +630,8 @@
             });
 
 
-            //append the table into divStepOne
-            $('#divStepOne').append($table);
+            //append the table into divSelectSolarPanel
+            $('#divSelectSolarPanel').append($table);
             $table.jExpand();
         }
         
@@ -634,8 +720,8 @@
 
             });
 
-            //append the table into divStepOne
-            $('#divStepTwo').append($table);
+            //append the table into divSelectInverter
+            $('#divSelectInverter').append($table);
             $table.jExpand();
                
         }
@@ -719,8 +805,8 @@
 
             });
 
-            //append the table into divStepOne
-            $('#divStepThree').append($table);
+            //append the table into divSelectSolarPanel
+            $('#divSelectBattery').append($table);
             $table.jExpand();
 
         }
@@ -733,20 +819,33 @@
             $('#btnStartWizard').click(function (e) 
             {
                 e.preventDefault();
-                stepOne();
+                stepEnergyUserProfile();
             });
         });
     </script>
     <!-- end: btnStartWizard -->
 
+    <!-- start: btnSubmitEnergyProfile -->
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#btnSubmitEnergyProfile').click(function (e) {
+                e.preventDefault();
+                $('#detailsUserAverageConsumption').html('POSTCODE: '+ $('#txtUserPostcode').val() +'<br/>ENERGY: '+ $('#txtAverageConsumption').val() +'kWh');
+                stepSolarPanelSelection();
+            });
+        });
+    
+    </script>
+    <!-- end: btnSubmitEnergyProfile -->
+
     <!-- start: solar panel selection -->
     <script type="text/javascript">
         $(document).ready(function () {
-            $('#divStepOne').on('click', '.panel-select', function (e) {
+            $('#divSelectSolarPanel').on('click', '.panel-select', function (e) {
                 e.preventDefault();
                 $('#selectionSolarPanel').text($(this).attr('id'));
                 $('#detailsSolarPanel').html($(this).parent().prev().prev().prev().html());
-                stepTwo();
+                stepInverterSelection();
             });
         });
     </script>
@@ -755,11 +854,11 @@
     <!-- start: inverter selection -->
     <script type="text/javascript">
         $(document).ready(function () {
-            $('#divStepTwo').on('click', '.inverter-select', function (e) {
+            $('#divSelectInverter').on('click', '.inverter-select', function (e) {
                 e.preventDefault();
                 $('#selectionInverter').text($(this).attr('id'));
                 $('#detailsInverter').html($(this).parent().prev().prev().prev().html());
-                stepThree();
+                stepBatterySelection();
             });
         });
     </script>
@@ -768,7 +867,7 @@
     <!-- start: battery selection -->
     <script type="text/javascript">
         $(document).ready(function () {
-            $('#divStepThree').on('click', '.battery-select', function (e) {
+            $('#divSelectBattery').on('click', '.battery-select', function (e) {
                 e.preventDefault();
                 $('#selectionBattery').text($(this).attr('id'));
                 $('#detailsBattery').html($(this).parent().prev().prev().prev().html());
@@ -781,45 +880,6 @@
     </script>
     <!-- end: battery selection -->
 
-    <!-- start: get results and bind to controls -->
-    <script type="text/javascript">
-        function getResults() {
-            var url = new UrlBuilder();
-            url.GoogleAppsEngineBaseUrl = 'http://orange.alansoto.com';
-            //url.Operation = "calculate";
-            url.Operation= 'TestCalculate.xml'
-            url.BatteryId = ($('#selectionBattery').text()).replace("battery_id_", "");
-            url.PanelId = ($('#selectionSolarPanel').text()).replace("panel_id_", "");
-            url.InverterId = ($('#selectionInverter').text()).replace("inverter_id_", "");
-            //alert(url.toString());
-
-
-            $.ajax({
-                type: 'POST',
-                url: 'proxy.aspx',
-                dataType: 'xml',
-                data: { servletCallUrl: url.toString() }
-            }).done(bindResults).fail(genericAjaxErrorHandler);
-
-        }
-
-        //reads xml and 
-        function bindResults(xml) {
-            $('#electricity_year').text($(xml).find('electricityProduction year').text());
-            $('#electricity_month').text($(xml).find('electricityProduction month').text());
-            $('#electricity_week').text($(xml).find('electricityProduction week').text());
-
-            $('#totalCost_year').text($(xml).find('totalCost year').text());
-            $('#totalCost_month').text($(xml).find('totalCost month').text());
-            $('#totalCost_week').text($(xml).find('totalCost week').text());
-
-            $('#roi_year').text($(xml).find('returnOnInvestment year').text());
-            $('#roi_month').text($(xml).find('returnOnInvestment month').text());
-            $('#roi_week').text($(xml).find('returnOnInvestment week').text());
-            
-
-        }    
-    </script>
-    <!-- end: get results and bind to controls -->
+   
 
 </asp:Content>
