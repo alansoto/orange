@@ -80,7 +80,7 @@ function UrlBuilder()
                     parameters += "&panelCount=" + this.PanelCount;
                 }
                 else {
-                    parameters += "&panelCount=1";
+                    parameters += "&panelCount=10";
                 }
             }
             else {
