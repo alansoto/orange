@@ -224,7 +224,7 @@
             $('#selectionBattery').text('');
             $('#selectionnverter').text('');
             $('#txtUserPostcode').val('4000');
-            $('#txtAverageConsumption').val('1650');
+            $('#txtAverageConsumption').val('1000');
 
 
             
