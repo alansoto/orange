@@ -59,14 +59,14 @@
             <p>
             <strong>YOUR POSTCODE:</strong><br />
             <em>Please input your postcode, e.g. 4121</em><br />
-            <input type="text"  style="width:150px;" id="txtUserPostcode" />
+            <input type="text"  style="width:150px;" id="txtUserPostcode" value="4000" name="txtUserPostcode"/>
             </p>
             <p>
             
             <strong>QUARTERLY AVERAGE ENERGY CONSUMPTION:</strong><br />
             <em>Must be in kWh (kilowatt-hour). You can find it in your electricity bill, e.g. 1650</em>
             <br />
-            <input type="text"  style="width:150px;" id="txtAverageConsumption" />
+            <input type="text"  style="width:150px;" id="txtAverageConsumption" value="1650" name="txtAverageConsumption" />
             </p>
             <input type="submit" value="CONTINUE" style="float: right" id="btnSubmitEnergyProfile" />
 
@@ -222,8 +222,8 @@
             $('#detailsSolarPanel').text('');
             $('#selectionBattery').text('');
             $('#selectionnverter').text('');
-            $('#txtUserPostcode').val('');
-            $('#txtAverageConsumption').val('');
+            $('#txtUserPostcode').val('4000');
+            $('#txtAverageConsumption').val('1650');
 
 
             
