@@ -31,6 +31,7 @@
                     <td id="tdSolarPanelSelection">
                         <h4>Solar Panel</h4>
                         <p id="selectionSolarPanel" style="display:none;"></p>
+                        <p id="selectionNumberOfPanels" style="display:none;"></p>
                         <p id="detailsSolarPanel"></p>
                     </td>
                     <td id="tdInverterSelection">
@@ -845,6 +846,8 @@
         $(document).ready(function () {
             $('#divSelectSolarPanel').on('click', '.panel-select', function (e) {
                 e.preventDefault();
+                var numberPanels = prompt('Number of Panels', '10');
+                $('#selectionNumberOfPanels').text(numberPanels);
                 $('#selectionSolarPanel').text($(this).attr('id'));
                 $('#detailsSolarPanel').html($(this).parent().prev().prev().prev().html());
                 stepInverterSelection();

@@ -14,6 +14,7 @@ function getResults() {
     url.InverterId = ($('#selectionInverter').text()).replace("inverter_id_", "");
     url.Postcode = $('#txtUserPostcode').val();
     url.EnergyConsumption = $('#txtAverageConsumption').val();
+    url.PanelCount = $('#selectionNumberOfPanels').text();
     
     
 
