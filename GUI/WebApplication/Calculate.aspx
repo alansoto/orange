@@ -172,7 +172,7 @@
                     <td><h2 id="totalCost_week">NA</h2></td>
                 </tr>
                 <tr>
-                    <td><h4>RETURN ON INVESTMENT (AUD)</h4></td>
+                    <td><h4>RETURN ON INVESTMENT (%)</h4></td>
                     <td><h2 id="roi_year">NA</h2></td>
                     <td><h2 id="roi_month">NA</h2></td>
                     <td><h2 id="roi_week">NA</h2></td>
