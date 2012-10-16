@@ -31,6 +31,7 @@
                     <td id="tdSolarPanelSelection">
                         <h4>Solar Panel</h4>
                         <p id="selectionSolarPanel" style="display:none;"></p>
+                        <p id="selectionNumberOfPanels" style="display:none;"></p>
                         <p id="detailsSolarPanel"></p>
                     </td>
                     <td id="tdInverterSelection">
@@ -59,14 +60,14 @@
             <p>
             <strong>YOUR POSTCODE:</strong><br />
             <em>Please input your postcode, e.g. 4121</em><br />
-            <input type="text"  style="width:150px;" id="txtUserPostcode" />
+            <input type="text"  style="width:150px;" id="txtUserPostcode" value="4000" name="txtUserPostcode"/>
             </p>
             <p>
             
             <strong>QUARTERLY AVERAGE ENERGY CONSUMPTION:</strong><br />
             <em>Must be in kWh (kilowatt-hour). You can find it in your electricity bill, e.g. 1650</em>
             <br />
-            <input type="text"  style="width:150px;" id="txtAverageConsumption" />
+            <input type="text"  style="width:150px;" id="txtAverageConsumption" value="1650" name="txtAverageConsumption" />
             </p>
             <input type="submit" value="CONTINUE" style="float: right" id="btnSubmitEnergyProfile" />
 
@@ -135,9 +136,11 @@
         <!-- start: wizard selection steps -->
         <div class="grid_9">
             <div id="divSelectSolarPanel">
-                <h4>Please select a component from the list below. You can also narrow your results by using the filters on the left.</h4>
-                <p>Don't have that component?<br />
-                <a href="#" id="linkManualInpsut"><strong>Input Details Manually</strong></a> </p>
+                <div style="display:none;">
+                    <h4>Please select a component from the list below. You can also narrow your results by using the filters on the left.</h4>
+                    <p>Don't have that component?<br />
+                    <a href="#" id="linkManualInpsut"><strong>Input Details Manually</strong></a> </p>
+                </div>
             </div>
             <div id="divSelectInverter">
             </div>
@@ -170,7 +173,7 @@
                     <td><h2 id="totalCost_week">NA</h2></td>
                 </tr>
                 <tr>
-                    <td><h4>RETURN ON INVESTMENT (AUD)</h4></td>
+                    <td><h4>RETURN ON INVESTMENT (%)</h4></td>
                     <td><h2 id="roi_year">NA</h2></td>
                     <td><h2 id="roi_month">NA</h2></td>
                     <td><h2 id="roi_week">NA</h2></td>
@@ -181,7 +184,7 @@
                     <td><h2 id="governmentRebates_month">NA</h2></td>
                     <td><h2 id="governmentRebates_week">NA</h2></td>
                 </tr>
-                <tr>
+                <tr style="display:none;">
                     <td><h4>OPTIMAL PANEL ANGLE (DEGREES)</h4></td>
                     <td><h2 id="optimalFacingAngle_summer">NA</h2><br />SUMMER</td>
                     <td><h2 id="optimalFacingAngle_winter">NA</h2><br />WINTER</td>
@@ -220,8 +223,8 @@
             $('#detailsSolarPanel').text('');
             $('#selectionBattery').text('');
             $('#selectionnverter').text('');
-            $('#txtUserPostcode').val('');
-            $('#txtAverageConsumption').val('');
+            $('#txtUserPostcode').val('4000');
+            $('#txtAverageConsumption').val('1000');
 
 
             
@@ -843,6 +846,8 @@
         $(document).ready(function () {
             $('#divSelectSolarPanel').on('click', '.panel-select', function (e) {
                 e.preventDefault();
+                var numberPanels = prompt('Number of Panels', '10');
+                $('#selectionNumberOfPanels').text(numberPanels);
                 $('#selectionSolarPanel').text($(this).attr('id'));
                 $('#detailsSolarPanel').html($(this).parent().prev().prev().prev().html());
                 stepInverterSelection();

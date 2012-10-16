@@ -96,7 +96,7 @@
             url.PanelId = "pan789";
             url.Postcode = "4064";
             url.EnergyConsumption = "1650";
-            equal(url.toString(), "http://baseurl/calculate?postcode=4064&inverterId=inv123&batteryId=bat456&panelId=pan789&energyConsumption=1650&panelCount=1", "testing components IDs: http://baseurl/calculate?postcode=4064&inverterId=inv123&batteryId=bat456&panelId=pan789&energyConsumption=1650&panelCount=1");
+            equal(url.toString(), "http://baseurl/calculate?postcode=4064&inverterId=inv123&batteryId=bat456&panelId=pan789&energyConsumption=1650&panelCount=10", "testing components IDs: http://baseurl/calculate?postcode=4064&inverterId=inv123&batteryId=bat456&panelId=pan789&energyConsumption=1650&panelCount=1");
 
             url.PanelCount = "45";
             equal(url.toString(), "http://baseurl/calculate?postcode=4064&inverterId=inv123&batteryId=bat456&panelId=pan789&energyConsumption=1650&panelCount=45", "testing optional panel count: http://baseurl/calculate?postcode=4064&inverterId=inv123&batteryId=bat456&panelId=pan789&energyConsumption=1650&panelCount=45");

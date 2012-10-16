@@ -7,20 +7,21 @@ function getResults() {
     var url = new UrlBuilder();
 
     //use this for real ajax calls, otherwise comment
-    url.GoogleAppsEngineBaseUrl = globalVars.GoogleAppsEngineBaseUrl; 
+   url.GoogleAppsEngineBaseUrl = globalVars.GoogleAppsEngineBaseUrl; 
     url.Operation = "calculate";
     url.BatteryId = ($('#selectionBattery').text()).replace("battery_id_", "");
     url.PanelId = ($('#selectionSolarPanel').text()).replace("panel_id_", "");
     url.InverterId = ($('#selectionInverter').text()).replace("inverter_id_", "");
     url.Postcode = $('#txtUserPostcode').val();
     url.EnergyConsumption = $('#txtAverageConsumption').val();
+    url.PanelCount = $('#selectionNumberOfPanels').text();
     
     
 
-    /*
+    
     //use this for test calls, otherwise comment
-    url.GoogleAppsEngineBaseUrl = "http://orange.alansoto.com/TestCalculate.xml";
-    */
+    //url.GoogleAppsEngineBaseUrl = "http://orange.alansoto.com/TestCalculate.xml";
+    
     
     
 
@@ -64,10 +65,13 @@ function bindResults(xml) {
     $('#roi_month').text($(xml).find('returnOnInvestment month').text());
     $('#roi_week').text($(xml).find('returnOnInvestment week').text());
 
-    $('#governmentRebates_year').text($(xml).find('governmentRebates year').text());
-    $('#governmentRebates_month').text($(xml).find('governmentRebates month').text());
-    $('#governmentRebates_week').text($(xml).find('governmentRebates week').text());
+    var a = new HelperFunctions();
+    
 
+    $('#governmentRebates_year').text($(xml).find('governmentRebates year').text());
+    $('#governmentRebates_month').text(a.roundNumber($(xml).find('governmentRebates year').text()/12,2));
+    $('#governmentRebates_week').text(a.roundNumber($(xml).find('governmentRebates year').text() / 52,2));
+    
     $('#optimalFacingAngle_summer').text($(xml).find('optimalFacingAngle summer').text());
     $('#optimalFacingAngle_winter').text($(xml).find('optimalFacingAngle winter').text());
 
