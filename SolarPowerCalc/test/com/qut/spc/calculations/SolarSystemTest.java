@@ -124,7 +124,7 @@ public class SolarSystemTest {
 		PowerMockito.when(DailySunProvider.getDailySunByPostcode("4000")).thenReturn(24d);
 		PowerMockito.when(DailySunProvider.getDailySunLight("4000")).thenReturn(276d);
 		PowerMockito.when(PostcodeUtil.validatePostcode("4000")).thenReturn(true);
-
+		when(container.parseDimension(anyString())).thenReturn(123.123);
 		
 		when(calc.getElectricityProduction(anyDouble(), anyDouble(), anyDouble(), anyDouble(),anyDouble(), anyDouble())).thenReturn(42d);
 		
@@ -147,6 +147,7 @@ public class SolarSystemTest {
 		PowerMockito.when(DailySunProvider.getDailySunByPostcode("4000")).thenReturn(24d);
 		PowerMockito.when(DailySunProvider.getDailySunLight("4000")).thenReturn(276d);
 		PowerMockito.when(PostcodeUtil.validatePostcode("4000")).thenReturn(true);
+		when(container.parseDimension(anyString())).thenReturn(123.123);
 
 		
 		when(calc.getElectricityProduction(anyDouble(), anyDouble(), anyDouble(), anyDouble(),anyDouble(), anyDouble())).thenReturn(42d);
@@ -155,7 +156,6 @@ public class SolarSystemTest {
 		container.setInverterId(25);
 		container.setPanelId(25);
 		container.setLocation("4000");
-
 		container.getElectricityProduction();
 		
 		PowerMockito.verifyStatic();
