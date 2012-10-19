@@ -33,7 +33,7 @@ public class CalculationControllerTest {
 		verify(calculator).setInverterId(24);
 		verify(calculator).setLocation("1234");
 		verify(calculator).setPanelId(32);
-		verify(calculator, times(4)).getElectricityProduction();	
+		verify(calculator, times(28)).getElectricityProduction();	
 	}
 	
 	
