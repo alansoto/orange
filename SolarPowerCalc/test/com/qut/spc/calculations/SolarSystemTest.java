@@ -163,4 +163,23 @@ public class SolarSystemTest {
 		
 
 	}
+	
+	@Test
+	public void parseDimensions_validDimension_CorrectResultIsReturned(){
+		
+		double res=container.parseDimension("2x5x3");
+		assertEquals(30/1000, res,0.00001);
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void parseDimensions_IncorrectNumberOfParameters_ExceptionIsThrown(){
+		
+		container.parseDimension("2x2x5x3");
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void parseDimensions_NotNumber_ExceptionIsThrown(){
+		
+		container.parseDimension("fx5x3");
+	}
 }
