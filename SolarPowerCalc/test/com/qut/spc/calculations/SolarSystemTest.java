@@ -116,6 +116,8 @@ public class SolarSystemTest {
 		container.setLocation("SDIFW");
 	}
 	
+	
+	
 	@Test
 	public void getElectricityProduction_validInput_dailySunIsFetchedAndUsed(){
 

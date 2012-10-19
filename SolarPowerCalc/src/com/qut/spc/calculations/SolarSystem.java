@@ -96,7 +96,20 @@ public class SolarSystem implements SystemCalculationAPI{
 		double dailySun=DailySunProvider.getDailySunByPostcode(location);
 		double sunIntensity=DailySunProvider.getDailySunLight(location);
 		
-		return electricityCalculator.getElectricityProduction(sunIntensity, inverter.getEfficiency()/100d, panel.getEfficiency()/100d, panel.getCapacity(),dailySun, timespan);
+		double dimensions=parseDimension(panel.getDimensions());
+		return panelCount*electricityCalculator.getElectricityProduction(sunIntensity*dimensions, inverter.getEfficiency()/100d, panel.getEfficiencyDecrease()/100d, panel.getCapacity()/1000d,dailySun, timespan);
+
+	}
+
+	public double parseDimension(String dimensions) {
+		if(dimensions.isEmpty())
+			return 1;
+		String[] split=dimensions.split("x",3);
+		
+		double res=1;
+		for(String s:split)
+			res*=Double.parseDouble(s)/1000;
+		return res;
 	}
 
 	@Override
