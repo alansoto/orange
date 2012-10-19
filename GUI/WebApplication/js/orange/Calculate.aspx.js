@@ -57,17 +57,16 @@ function bindResults(xml) {
             );
 
 
+    var a = new HelperFunctions();
+
     $('#totalCost_year').text($(xml).find('totalCost year').text());
-    $('#totalCost_month').text($(xml).find('totalCost month').text());
-    $('#totalCost_week').text($(xml).find('totalCost week').text());
+    $('#totalCost_month').text(a.roundNumber($(xml).find('totalCost month').text() / 12, 2));
+    $('#totalCost_week').text(a.roundNumber($(xml).find('totalCost week').text() / 52, 2));
 
     $('#roi_year').text($(xml).find('returnOnInvestment year').text());
     $('#roi_month').text($(xml).find('returnOnInvestment month').text());
     $('#roi_week').text($(xml).find('returnOnInvestment week').text());
-
-    var a = new HelperFunctions();
     
-
     $('#governmentRebates_year').text($(xml).find('governmentRebates year').text());
     $('#governmentRebates_month').text(a.roundNumber($(xml).find('governmentRebates year').text()/12,2));
     $('#governmentRebates_week').text(a.roundNumber($(xml).find('governmentRebates year').text() / 52,2));
