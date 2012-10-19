@@ -135,8 +135,21 @@ public class ROICalculator implements ROICalculationAPI {
 
 	public double getRebates() {
 		if(electricityProduction>dailyUsage)
-			return (electricityProduction-dailyUsage)*numberOfDays*feedInTariff;
+			return (electricityProduction-dailyUsage)*(double)numberOfDays*feedInTariff;
 		return 0;
+	}
+
+	public double getFeedIntariff() {
+		return feedInTariff;
+	}
+
+	public double getSavings() {
+		double ret=electricityProduction*numberOfDays*costOfElectricity-systemCost;
+		if(electricityProduction>dailyUsage)
+			ret+=(electricityProduction-dailyUsage)*numberOfDays*feedInTariff;
+		if(ret<0)
+			return 0;
+		return ret;
 	}
 	
 	
