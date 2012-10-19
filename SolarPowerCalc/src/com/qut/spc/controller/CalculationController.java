@@ -24,7 +24,6 @@ import com.qut.spc.model.Panel;
 /**
  * Jersey public access path for retrieving calculation results
  * @author simen
- *
  */
 @Path("/calculate/")
 public class CalculationController {
@@ -75,6 +74,7 @@ public class CalculationController {
 			@QueryParam("panelEfficiency")@DefaultValue("-1")double panelEfficiency,
 			@QueryParam("panelOutput")@DefaultValue("-1")double panelOutput,
 			@QueryParam("energyConsumption")@DefaultValue("-1")double energyConsumption) throws InvalidArgumentException{
+	
 		
 		verifyInputs(panelId, batteryId, inverterId, systemCost,
 				inverterEfficiency, panelEfficiency, panelOutput,energyConsumption);
@@ -130,7 +130,7 @@ public class CalculationController {
 			}
 			calculator.setLocation(postcode);
 			
-			roiCalculator.setDailyUsage(energyConsumption);
+			roiCalculator.setDailyUsage(energyConsumption/(365/4));
 			roiCalculator.setFeedInTariff(FeedInTariffProvider.getFeedInTariffByPostcode(postcode));
 			roiCalculator.setCostOfElectricity(ElectricityCost.getElectricityCost(postcode));
 			
@@ -163,14 +163,56 @@ public class CalculationController {
 	}
 	
 	private void calculateThings(StringBuilder builder,DecimalFormat df){		
+		
+		
+		double[][] tmp=new double[25][];
+		
+		
+		
+		for(int i=1;i<tmp.length+1;i++){
+			tmp[i-1]=calculate(365*i);
+		}
+		
+
 		double[] weekCalc=calculate(7);
 		double[]monthCalc=calculate(30);
 		double[]yearCalc=calculate(365);
-		double[]twentyFiveYear=calculate(365*25);
-		appendParameter(yearCalc[0],monthCalc[0],weekCalc[0],twentyFiveYear[0], "electricityProduction", builder, df);		
-		appendParameter(yearCalc[1],monthCalc[1],weekCalc[1],twentyFiveYear[1], "totalCost", builder, df);
-		appendParameter(yearCalc[2],monthCalc[2],weekCalc[2],twentyFiveYear[2], "returnOnInvestment", builder, df);
-		appendParameter(yearCalc[3], monthCalc[3], weekCalc[3], twentyFiveYear[3], "governmentRebates", builder, df);
+		
+		
+		appendParamter("electricityProduction", tmp, 0, builder, df);
+		appendParameter(yearCalc[0],monthCalc[0],weekCalc[0],"electricityProduction", builder, df);	
+		builder.append("</electricityProduction>");
+		
+		appendParamter("totalCost", tmp, 1, builder, df);
+		appendParameter(yearCalc[1],monthCalc[1],weekCalc[1], "totalCost", builder, df);
+		builder.append("</totalCost>");
+
+		appendParamter("returnOnInvestment", tmp, 2, builder, df);
+		appendParameter(yearCalc[2],monthCalc[2],weekCalc[2], "returnOnInvestment", builder, df);
+		builder.append("</returnOnInvestment>");
+
+		appendParamter("governmentRebates", tmp, 3, builder, df);
+		appendParameter(yearCalc[3], monthCalc[3], weekCalc[3], "governmentRebates", builder, df);
+		builder.append("</governmentRebates>");
+
+		appendParamter("savings", tmp, 4, builder, df);
+		appendParameter(yearCalc[4], monthCalc[4], weekCalc[4], "savings", builder, df);
+		builder.append("</savings>");
+
+		
+	
+	}
+	
+	private void appendParamter(String name,double[][]map,int index,StringBuilder builder, DecimalFormat df){
+		builder.append("<"+name+">");
+		builder.append("<years>");
+		for(int j=0;j<map.length;j++){
+			builder.append(df.format(map[j][index]));
+			if(j!=map.length-1)
+				builder.append("; ");
+		}
+		builder.append("</years>");
+//		builder.append("</"+name+">");
 	}
 	
 	private double[] calculate(int timespan){
@@ -179,21 +221,20 @@ public class CalculationController {
 		double elProduction=calculator.getElectricityProduction();
 		double tc=calculator.getTotalCost();
 		
-		roiCalculator.setElectricityProduction(elProduction,timespan);
+		roiCalculator.setElectricityProduction(elProduction/timespan,timespan);
 		roiCalculator.setSystemCost(tc);
 		
-		double roi=calculator.getROI();
+		double roi=calculator.getROI()*100;
 		double rebates=roiCalculator.getRebates();
-		
-		return new double[]{elProduction,tc,roi,rebates};
+		double savings=roiCalculator.getSavings();
+		return new double[]{elProduction,tc,roi,rebates,savings};
 	}
 	
-	private void appendParameter(double year,double month,double week,double twentyFive, String name, StringBuilder builder,DecimalFormat format){
-		builder.append("<"+name+">");
+	private void appendParameter(double year,double month,double week, String name, StringBuilder builder,DecimalFormat format){
+
 		builder.append("<year>"+format.format(year)+"</year>");
 		builder.append("<month>"+format.format(month)+"</month>");
 		builder.append("<week>"+format.format(week)+"</week>");
-		builder.append("<twentyFiveYears>"+format.format(twentyFive)+"</twentyFiveYears>");
-		builder.append("</"+name+">");
+
 	}
 }
