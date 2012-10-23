@@ -92,6 +92,18 @@ public class ElectricityProductionActivity extends Activity {
 		}
 	}
 
+	@Override
+	protected void onPause() {
+		locationService.cancelUpdateLocation();
+		super.onResume();
+	}
+
+	@Override
+	protected void onStop() {
+		locationService.cancelUpdateLocation();
+		super.onStop();
+	}
+
 	public void onButtonClick(View v) {
 		switch(v.getId()) {
 		case R.id.btCalculate:
