@@ -46,7 +46,7 @@ public class DailySunProvider {
 
 
 
-	public static double getDailySunLight(String location) {
+	public static double getSunIntensity(String location) {
 		if(PostcodeUtil.validatePostcode(location)){
 			String postcode=PostcodeUtil.transformPostcode(location);
 			if(locationToSunHoursIntensity.containsKey(postcode))

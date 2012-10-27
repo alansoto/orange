@@ -69,4 +69,6 @@ public interface SystemCalculationAPI {
 
 	void setSystemCost(double systemCost);
 
+	String getLocation();
+
 }

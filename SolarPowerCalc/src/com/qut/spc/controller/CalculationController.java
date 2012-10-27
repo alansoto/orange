@@ -20,6 +20,7 @@ import com.qut.spc.feedInTariff.FeedInTariffProvider;
 import com.qut.spc.model.Battery;
 import com.qut.spc.model.Inverter;
 import com.qut.spc.model.Panel;
+import com.qut.spc.weather.DailySunProvider;
 
 /**
  * Jersey public access path for retrieving calculation results
@@ -199,10 +200,23 @@ public class CalculationController {
 		appendParameter(yearCalc[4], monthCalc[4], weekCalc[4], "savings", builder, df);
 		builder.append("</savings>");
 
-		
+		appendLocationThings(builder,df);
 	
 	}
 	
+	private void appendLocationThings(StringBuilder builder, DecimalFormat df) {
+		builder.append("<locationinfo>");
+		
+		String postcode=calculator.getLocation();
+		
+		appendParameter("postcode",postcode, builder, df);
+		appendParameter("sunIntensity", DailySunProvider.getSunIntensity(postcode), builder, df);
+		appendParameter("dailySunHours", DailySunProvider.getDailySunByPostcode(postcode), builder, df);
+		appendParameter("feedInTariff", FeedInTariffProvider.getFeedInTariffByPostcode(postcode), builder, df);
+
+		builder.append("</locationinfo>");
+	}
+
 	private void appendParamter(String name,double[][]map,int index,StringBuilder builder, DecimalFormat df){
 		builder.append("<"+name+">");
 		builder.append("<years>");
@@ -228,6 +242,17 @@ public class CalculationController {
 		double rebates=roiCalculator.getRebates();
 		double savings=roiCalculator.getSavings();
 		return new double[]{elProduction,tc,roi,rebates,savings};
+	}
+	
+	private void appendParameter(String name,Object value,StringBuilder builder,DecimalFormat format){
+		builder.append("<"+name+">");
+		if(value instanceof Double)
+			builder.append(format.format((Double)value));
+		else
+			builder.append(value.toString());
+				
+		
+		builder.append("</"+name+">");
 	}
 	
 	private void appendParameter(double year,double month,double week, String name, StringBuilder builder,DecimalFormat format){
