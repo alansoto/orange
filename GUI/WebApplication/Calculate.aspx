@@ -2,6 +2,7 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
     <link href='http://fonts.googleapis.com/css?family=Anton|Oswald' rel='stylesheet' type='text/css'>
+    
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <div class="container_12 content">
@@ -153,8 +154,12 @@
 
         <!-- start: results selectionpanel -->
         <div id="divResultsPanel" class="grid_12">
-            <span class="results-header">Your system will produce</span>
-            <div class="results-left">GRAPH</div>
+            
+            <div class="results-header">Your system will produce</div>
+            <div class="results-left">
+                <div id="graphElectricity" class="results-graph"></div>
+                <strong>PRODUCTION ELECTRICITY OVER 25 YEARS</strong>
+            </div>
             <div class="results-right">
                 <span class="results-number" id="electricity_year">XX kwh</span> 
                 <span class="results-description">IN ONE YEAR</span><br />
@@ -163,16 +168,18 @@
                 <span class="results-number" id="electricity_week">XX kwh</span> 
                 <span class="results-description">IN ONE WEEK</span><br />
             </div>
-            <span class="results-header">In your area there is an average of</span>
+
+            <div class="clearfix"></div>
+
+
+            <div class="results-header">In your area there is an average of</div>
             <div> 
                 <span class="results-number" id="sunIntensity">XX WATTS</span>
                 <span class="results-description">OF SUN INTENSITY</span><br />
                 <span class="results-number" id="dailySunHours">XX HOURS</span>
                 <span class="results-description">OF BEAUTIFUL, SUNNY DAYLIGHT</span><br />
             </div>
-            <br /><br /><br /><br />
-            <span class="results-header">So, this all means that...</span>
-            <span class="results-header">Your system will cost aproximately</span>
+            <div class="results-header">So, this all means that...<br />Your system will cost aproximately</div>
             <div>
                 <span class="results-number" id="totalCost_year">$ XX</span> 
                 <span class="results-description">ON ONE UPFRONT PAYMENT, OR</span><br />
@@ -181,8 +188,14 @@
                 <span class="results-number" id="totalCost_week">$ XX</span> 
                 <span class="results-description">IN 52 WEEKLY PAYMENTS</span><br />
             </div>
-            <span class="results-header">And you will save</span>
-            <div class="results-left">GRAPH</div>
+
+            <div class="clearfix"></div>
+
+            <div class="results-header">And you will save</div>
+            <div class="results-left">
+                <div id="graphSavings" class="results-graph"></div>
+                <strong>SAVINGS OVER 25 YEARS</strong>
+            </div>
             <div class="results-right">
                 <span class="results-number" id="savings_year">$ XX</span> 
                 <span class="results-description">IN ONE YEAR</span><br />
@@ -191,8 +204,14 @@
                 <span class="results-number" id="savings_week">$ XX</span> 
                 <span class="results-description">IN ONE WEEK</span><br />
             </div>
-            <span class="results-header">Every dollar invested will return</span>
-            <div class="results-left">GRAPH</div>
+
+            <div class="clearfix"></div>
+            
+            <div class="results-header">Every dollar invested will return</div>
+            <div class="results-left">
+                <div id="graphRoi" class="results-graph"></div>
+                <strong>RETURNS ON INVESTMENT OVER 25 YEARS</strong>
+            </div>
             <div class="results-right">
                 <span class="results-number" id="roi_year">XX%</span> 
                 <span class="results-description">IN ONE YEAR</span><br />
@@ -201,9 +220,14 @@
                 <span class="results-number" id="roi_week">XX%</span> 
                 <span class="results-description">IN ONE WEEK</span><br />
             </div>
-            <span class="results-header">WHAT ABOUT GOVERNMENT REBATES?</span>
-            <span class="results-header">AT $0.08 PER KWH EXPORTED YOU WILL RECEIVE</span>
-            <div class="results-left">GRAPH</div>
+
+            <div class="clearfix"></div>
+            
+            <div class="results-header">WHAT ABOUT GOVERNMENT REBATES?<br />AT $0.08 PER KWH EXPORTED YOU WILL RECEIVE</div>
+            <div class="results-left">
+                <div id="graphRebates" class="results-graph"></div>
+                <strong>GOVERNMENT REBATES OVER 25 YEARS</strong>
+            </div>
             <div class="results-right">
                 <span class="results-number" id="governmentRebates_year">$ XX</span> 
                 <span class="results-description">IN ONE YEAR</span><br />
@@ -213,12 +237,6 @@
                 <span class="results-description">IN ONE WEEK</span><br />
             </div>
                 
-
-                
-
-            
-
-
         </div>
         <div class="clear"></div>
         <!-- end: results panel -->
@@ -230,6 +248,8 @@
     <script src="js/orange/SunCalculatorUrlBuilder.js" type="text/javascript"></script>
     <script src="js/libs/jExpand.js" type="text/javascript"></script>
     <script src="js/orange/Calculate.aspx.js" type="text/javascript"></script>
+    <script src="js/jqueryFlot/jquery.flot.js" type="text/javascript"></script>
+    <script src="js/jqueryFlot/Graph.js" type="text/javascript"></script>
     <!-- start: steps set up -->
     <script type="text/javascript">
         function resetWizard() {
@@ -876,10 +896,12 @@
             $('#divSelectSolarPanel').on('click', '.panel-select', function (e) {
                 e.preventDefault();
                 var numberPanels = prompt('Number of Panels', '10');
-                $('#selectionNumberOfPanels').text(numberPanels);
-                $('#selectionSolarPanel').text($(this).attr('id'));
-                $('#detailsSolarPanel').html($(this).parent().prev().prev().prev().html());
-                stepInverterSelection();
+                if (numberPanels) {
+                    $('#selectionNumberOfPanels').text(numberPanels);
+                    $('#selectionSolarPanel').text($(this).attr('id'));
+                    $('#detailsSolarPanel').html($(this).parent().prev().prev().prev().html());
+                    stepInverterSelection();
+                }
             });
         });
     </script>
