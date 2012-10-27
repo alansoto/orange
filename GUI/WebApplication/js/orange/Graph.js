@@ -3,12 +3,14 @@ function Graph(canvas) {
 	this.data = [[]];
 	this.opt = {
 		series: {
+			color: "#1EB414",
 			lines: {show: true},
 			points: {show: true}
 		},
 //		legend: {show: false},
 		xaxis: {
-			tickSize: 5
+			tickSize: 2,
+			tickDecimals: 0,
 //			mode: 'time',
 //			timeformat: '%y-%0m-%0d %H:%M:%S',
 //			minTickSize: [30, 'second'],
@@ -27,31 +29,31 @@ function Graph(canvas) {
 //			interactive: true,
 //			mode: "x"
 //		},
-            	width: 0,	// auto
-		minWidth: 640,
-		height: 480,
 	};
 	this.plot = null;
 }
 
 Graph.prototype = {
 
+// Set data from string which each value saparated by ;
+setData: function(str, startYear) {
+	var vals = str.split(";");
+	var series = [];
+	if (!startYear) {
+		startYear = 1;
+	}
+	for (var i in vals) {
+		series.push([startYear, parseInt(vals[i], 10)]);
+		++startYear;
+	}
+	this.setSeries(0, series);
+},
+
 setSeries: function(idx, series) {
-	console.log(series);
 	this.data[idx] = series;
 },
 
 draw: function() {
-	var w = (this.opt.width == 0)
-		? this.canvas.width()
-		: this.opt.width;
-	if (w < this.opt.minWidth) {
-		w = this.opt.minWidth;
-	}
-	this.canvas.css({
-		width: w,
-		height: this.opt.height
-	});
 	this.plot = $.plot(this.canvas, this.data, this.opt);
 },
 
@@ -120,8 +122,7 @@ enableTooltip: function() {
 },
 
 getTooltip: function(item) {
-	var d = new Date(item.datapoint[0]);
-	var text = d.toString();
+	var text = item.datapoint[0].toString();
 	text += ": " + item.datapoint[1];
 	return text;
 }

@@ -21,19 +21,21 @@
     <body>
     <h1>Orange Graph</h1>
 
-    <div id="placeholder" style="width:600px;height:300px;"></div>
-    <div id="overview" style="width:400px;height:60px;"></div>
+    <div id="p1" style="width:500px;height:150px;"></div>
+    <div id="p2" style="width:500px;height:150px;"></div>
 
 <script type="text/javascript">
 $(function () {
-	var g = new Graph($("#placeholder"));
-	g.enableTooltip();
+	var str = "1;3;5;7;15;66;33;21;46;22;13;12;10;8;4;2;4;6";
+	var g1 = new Graph($("#p1"));
+	g1.enableTooltip();
+	g1.setData(str, 2013);
+	g1.draw();
 
-	g.setSeries(0, Graph.genSeries(25));
-	g.setSeries(1, Graph.genSeries(25));
-
-	g.draw();
-	g.drawOverview($('#overview'));
+	var g2 = new Graph($("#p2"));
+	g2.enableTooltip();
+	g2.setData(str);
+	g2.draw();
 });
 </script>
 
