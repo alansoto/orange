@@ -10,12 +10,12 @@ public class FeedInTariffProvider {
 
 	private static Map<String,Double> locationToFeedInTariffIntensity=new HashMap<String, Double>(){
 		{
-			put("4000",0.44); //QLD
+			put("4000",0.08); //QLD
 			put("5000",0.44); //SA
 			put("2000",0.103); //NSW
 			//put("3000",new double[]{5.58,1000}); //VIC
 			//put("2900",new double[]{7.33,1000}); //ACT
-			put("6000",0.44); //WA
+			put("6000",0.20); //WA
 			put("0800",0.2177); //NT
 			
 		}};
