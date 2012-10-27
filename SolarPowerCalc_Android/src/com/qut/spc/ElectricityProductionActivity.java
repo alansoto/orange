@@ -95,7 +95,7 @@ public class ElectricityProductionActivity extends Activity {
 	@Override
 	protected void onPause() {
 		locationService.cancelUpdateLocation();
-		super.onResume();
+		super.onPause();
 	}
 
 	@Override
