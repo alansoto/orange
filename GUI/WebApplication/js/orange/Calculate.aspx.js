@@ -40,42 +40,48 @@ function getResults() {
 function bindResults(xml) {
     var h = new HelperFunctions();
 
-    $('#electricity_year').text(
+    //read variables
+    var electricityProductionYear = $(xml).find('electricityProduction year').text().toString();
+    var electricityProductionMonth = $(xml).find('electricityProduction month').text().toString();
+    var electricityProductionWeek = $(xml).find('electricityProduction week').text().toString();
+    var totalCostYear =$(xml).find('totalCost year').text();
+    var totalCostMonth = h.roundNumber($(xml).find('totalCost month').text() / 12, 2);
+    var totalCostWeek = h.roundNumber($(xml).find('totalCost week').text() / 52, 2)
+    var roiYear = $(xml).find('returnOnInvestment year').text();
+    var roiMonth = $(xml).find('returnOnInvestment month').text();
+    var roiWeek = $(xml).find('returnOnInvestment week').text();
+    var governmentRebatesYear = $(xml).find('governmentRebates year').text();
+    var governmentRebatesMonth = h.roundNumber($(xml).find('governmentRebates year').text() / 12, 2);
+    var governmentRebatesWeek = h.roundNumber($(xml).find('governmentRebates year').text() / 52, 2);
+    var savingsYear = $(xml).find('savings year').text();
+    var savingsMonth = $(xml).find('savings month').text();
+    var savingsWeek = $(xml).find('savings week').text();
+    var sunIntensity = $(xml).find('sunIntensity').text();
+    var dailySunHours = $(xml).find('dailySunHours').text();
 
-                    $(xml).find('electricityProduction year').text().toString()
+    //bind variables with respective units of measure
+    $('#electricity_year').text(electricityProductionYear + " KWH");
+    $('#electricity_month').text(electricityProductionMonth + " KWH");
+    $('#electricity_week').text(electricityProductionWeek + " KWH");
+    $('#totalCost_year').text("$"+totalCostYear);
+    $('#totalCost_month').text("$" + totalCostMonth);
+    $('#totalCost_week').text("$" + totalCostWeek);
 
-            );
-    $('#electricity_month').text(
+    $('#roi_year').text(roiYear + '%');
+    $('#roi_month').text(roiMonth + '%');
+    $('#roi_week').text(roiWeek + '%');
 
-                    $(xml).find('electricityProduction month').text().toString()
-
-            );
-    $('#electricity_week').text(
-
-                    $(xml).find('electricityProduction week').text().toString()
-
-            );
-
-
-    var a = new HelperFunctions();
-
-    $('#totalCost_year').text($(xml).find('totalCost year').text());
-    $('#totalCost_month').text(a.roundNumber($(xml).find('totalCost month').text() / 12, 2));
-    $('#totalCost_week').text(a.roundNumber($(xml).find('totalCost week').text() / 52, 2));
-
-    $('#roi_year').text($(xml).find('returnOnInvestment year').text());
-    $('#roi_month').text($(xml).find('returnOnInvestment month').text());
-    $('#roi_week').text($(xml).find('returnOnInvestment week').text());
+    $('#governmentRebates_year').text("$" + governmentRebatesYear);
+    $('#governmentRebates_month').text("$" + governmentRebatesMonth);
+    $('#governmentRebates_week').text("$" + governmentRebatesWeek);
     
-    $('#governmentRebates_year').text($(xml).find('governmentRebates year').text());
-    $('#governmentRebates_month').text(a.roundNumber($(xml).find('governmentRebates year').text()/12,2));
-    $('#governmentRebates_week').text(a.roundNumber($(xml).find('governmentRebates year').text() / 52,2));
-    
-    $('#optimalFacingAngle_summer').text($(xml).find('optimalFacingAngle summer').text());
-    $('#optimalFacingAngle_winter').text($(xml).find('optimalFacingAngle winter').text());
+    //savings
+    $('#savings_year').text("$" + savingsYear);
+    $('#savings_month').text("$" +  + savingsMonth);
+    $('#savings_week').text("$" + savingsWeek);
 
-    //continue implementing here
-
+    $('#sunIntensity').html(sunIntensity + ' WATTS / M <sup>2</sup>');
+    $('#dailySunHours').text(dailySunHours + ' HOURS');
 
 }    
     
