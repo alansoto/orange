@@ -78,13 +78,18 @@ public class LocationActivity extends MapActivity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		locationService.updateLocation();
 	}
 
 	@Override
 	protected void onPause() {
-		super.onPause();
 		locationService.cancelUpdateLocation();
+		super.onPause();
+	}
+	
+	@Override
+	protected void onStop() {
+		locationService.cancelUpdateLocation();
+		super.onStop();
 	}
 
 	private void sendResultAndClose() {

@@ -68,6 +68,12 @@ public class CalculationResultActivity extends Activity {
 	}
 
 	@Override
+	protected void onPause() {
+		compassService.unregisterListener();
+		super.onPause();
+	}
+	
+	@Override
 	protected void onStop() {
 		compassService.unregisterListener();
 		super.onStop();

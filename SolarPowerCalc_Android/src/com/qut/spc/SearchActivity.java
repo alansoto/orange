@@ -124,6 +124,18 @@ public class SearchActivity extends Activity {
 		}
 	}
 
+	@Override
+	protected void onPause() {
+		locationService.cancelUpdateLocation();
+		super.onPause();
+	}
+
+	@Override
+	protected void onStop() {
+		locationService.cancelUpdateLocation();
+		super.onStop();
+	}
+	
 	private void restoreInstanceState(Bundle state) {
 		if (state == null) {
 			return;
