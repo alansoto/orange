@@ -1,6 +1,9 @@
 package com.qut.spc.controller;
 
 import static org.junit.Assert.*;
+
+import java.text.DecimalFormat;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -88,7 +91,7 @@ public class CalculationControllerTest {
 	
 	@Test
 	public void testGetCalculations_invalidBatteryId_newBatteryIsSet(){
-		System.out.println("WEgk");
+
 		controller.getCalculations(-1, 1, -1, -1, "4000", 3000, 200, 200, 200,23);
 		verify(calculator).setBattery(any(Battery.class));
 	}

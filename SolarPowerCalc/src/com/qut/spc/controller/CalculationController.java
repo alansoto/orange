@@ -130,11 +130,10 @@ public class CalculationController {
 				calculator.setInverterId(inverterId);				
 			}
 			calculator.setLocation(postcode);
-			
 			roiCalculator.setDailyUsage(energyConsumption/(365/4));
 			roiCalculator.setFeedInTariff(FeedInTariffProvider.getFeedInTariffByPostcode(postcode));
 			roiCalculator.setCostOfElectricity(ElectricityCost.getElectricityCost(postcode));
-			
+
 		}catch(EntityNotFoundException e){
 			throw new InvalidArgumentException(e.getMessage());
 		}catch(IllegalArgumentException e){
@@ -163,7 +162,7 @@ public class CalculationController {
 		}
 	}
 	
-	private void calculateThings(StringBuilder builder,DecimalFormat df){		
+	public void calculateThings(StringBuilder builder,DecimalFormat df){		
 		
 		
 		double[][] tmp=new double[25][];
@@ -208,7 +207,6 @@ public class CalculationController {
 		builder.append("<locationinfo>");
 		
 		String postcode=calculator.getLocation();
-		
 		appendParameter("postcode",postcode, builder, df);
 		appendParameter("sunIntensity", DailySunProvider.getSunIntensity(postcode), builder, df);
 		appendParameter("dailySunHours", DailySunProvider.getDailySunByPostcode(postcode), builder, df);
@@ -235,6 +233,10 @@ public class CalculationController {
 		double elProduction=calculator.getElectricityProduction();
 		double tc=calculator.getTotalCost();
 		
+		if(elProduction<0)
+			elProduction=0;
+			
+		
 		roiCalculator.setElectricityProduction(elProduction/timespan,timespan);
 		roiCalculator.setSystemCost(tc);
 		
@@ -248,8 +250,9 @@ public class CalculationController {
 		builder.append("<"+name+">");
 		if(value instanceof Double)
 			builder.append(format.format((Double)value));
-		else
+		else{
 			builder.append(value.toString());
+		}
 				
 		
 		builder.append("</"+name+">");

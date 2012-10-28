@@ -71,4 +71,6 @@ public interface SystemCalculationAPI {
 
 	String getLocation();
 
+	Panel getPanel();
+
 }
