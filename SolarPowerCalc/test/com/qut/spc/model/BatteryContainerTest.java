@@ -71,9 +71,9 @@ public class BatteryContainerTest {
 		list = container.search();
 		
 		assertEquals(3, list.size());
-		assertEquals("3", list.get(0).getModel());
+		assertEquals("3", list.get(2).getModel());
 		assertEquals("4", list.get(1).getModel());
-		assertEquals("5", list.get(2).getModel());
+		assertEquals("5", list.get(0).getModel());
 	}
 	
 	@Test
@@ -84,8 +84,8 @@ public class BatteryContainerTest {
 		list = container.search();
 		
 		assertEquals(2, list.size());
-		assertEquals("1", list.get(0).getModel());
-		assertEquals("2", list.get(1).getModel());
+		assertEquals("1", list.get(1).getModel());
+		assertEquals("2", list.get(0).getModel());
 	}
 
 	@Test
@@ -96,8 +96,8 @@ public class BatteryContainerTest {
 		list = container.search();
 		
 		assertEquals(2, list.size());
-		assertEquals("4", list.get(0).getModel());
-		assertEquals("5", list.get(1).getModel());
+		assertEquals("4", list.get(1).getModel());
+		assertEquals("5", list.get(0).getModel());
 	}
 	
 	@Test
@@ -117,8 +117,8 @@ public class BatteryContainerTest {
 		list = container.search();
 		
 		assertEquals(2, list.size());
-		assertEquals("3", list.get(0).getModel());
-		assertEquals("4", list.get(1).getModel());
+		assertEquals("3", list.get(1).getModel());
+		assertEquals("4", list.get(0).getModel());
 	}
 	
 	@Test
@@ -140,8 +140,8 @@ public class BatteryContainerTest {
 		list = container.search();
 		
 		assertEquals(2, list.size());
-		assertEquals("4", list.get(0).getModel());
-		assertEquals("5", list.get(1).getModel());
+		assertEquals("4", list.get(1).getModel());
+		assertEquals("5", list.get(0).getModel());
 	}
 	
 	@Test

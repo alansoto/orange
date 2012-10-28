@@ -339,8 +339,8 @@ public class PanelContainerTest {
 		list = container.search();
 		assertEquals(2, list.size());
 		
-		assertEquals("A1", list.get(0).getModel());
-		assertEquals("C1", list.get(1).getModel());
+		assertEquals("A1", list.get(1).getModel());
+		assertEquals("C1", list.get(0).getModel());
 	}
 	
 	@Test

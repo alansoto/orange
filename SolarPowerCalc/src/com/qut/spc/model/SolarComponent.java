@@ -272,6 +272,6 @@ public abstract class SolarComponent implements Comparable<SolarComponent>{
 	
 	@Override
 	public int compareTo(SolarComponent o) {
-		return Double.compare(price, o.price);
+		return Double.compare(o.capacity, capacity);
 	}
 }
