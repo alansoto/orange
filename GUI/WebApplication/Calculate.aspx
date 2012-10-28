@@ -937,5 +937,37 @@
     <!-- end: battery selection -->
 
    
+   <!-- start: clicking on main tabs to navigate in wizard -->
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#tdEnergyUserProfile').css('cursor', 'pointer');
+            $('#tdSolarPanelSelection').css('cursor', 'pointer');
+            $('#tdInverterSelection').css('cursor', 'pointer');
+            $('#tdBatterySelection').css('cursor', 'pointer');
+
+
+
+            $('#tdEnergyUserProfile').click(function (e) {
+                stepEnergyUserProfile();
+            });
+
+            $('#tdSolarPanelSelection').click(function (e) {
+                stepSolarPanelSelection();
+            });
+
+            $('#tdInverterSelection').click(function (e) {
+                stepInverterSelection();
+            });
+
+            $('#tdBatterySelection').click(function (e) {
+                stepBatterySelection();
+            });
+        });
+
+        
+    </script>
+   
+   
+   <!-- end: clicking on main tabs to navigate in wizard -->
 
 </asp:Content>
