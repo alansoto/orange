@@ -122,7 +122,7 @@ public class SolarSystemTest {
 	public void getElectricityProduction_validInput_dailySunIsFetchedAndUsed(){
 
 		PowerMockito.when(DailySunProvider.getDailySunByPostcode("4000")).thenReturn(24d);
-		PowerMockito.when(DailySunProvider.getDailySunLight("4000")).thenReturn(276d);
+		PowerMockito.when(DailySunProvider.getSunIntensity("4000")).thenReturn(276d);
 		PowerMockito.when(PostcodeUtil.validatePostcode("4000")).thenReturn(true);
 		when(container.parseDimension(anyString())).thenReturn(123.123);
 		
@@ -145,7 +145,7 @@ public class SolarSystemTest {
 	@Test
 	public void getElectricityProduction_validInput_sunIntensityIsFetchedAndUsed(){
 		PowerMockito.when(DailySunProvider.getDailySunByPostcode("4000")).thenReturn(24d);
-		PowerMockito.when(DailySunProvider.getDailySunLight("4000")).thenReturn(276d);
+		PowerMockito.when(DailySunProvider.getSunIntensity("4000")).thenReturn(276d);
 		PowerMockito.when(PostcodeUtil.validatePostcode("4000")).thenReturn(true);
 		when(container.parseDimension(anyString())).thenReturn(123.123);
 
@@ -159,7 +159,7 @@ public class SolarSystemTest {
 		container.getElectricityProduction();
 		
 		PowerMockito.verifyStatic();
-		DailySunProvider.getDailySunLight("4000");
+		DailySunProvider.getSunIntensity("4000");
 		
 
 	}

@@ -94,9 +94,10 @@ public class SolarSystem implements SystemCalculationAPI{
 	public double getElectricityProduction() throws EntityNotFoundException{
 
 		double dailySun=DailySunProvider.getDailySunByPostcode(location);
-		double sunIntensity=DailySunProvider.getDailySunLight(location);
+		double sunIntensity=DailySunProvider.getSunIntensity(location);
 		
 		double dimensions=parseDimension(panel.getDimensions());
+
 		return panelCount*electricityCalculator.getElectricityProduction(sunIntensity*dimensions, inverter.getEfficiency()/100d, panel.getEfficiencyDecrease()/100d, panel.getCapacity()/1000d,dailySun, timespan);
 
 	}
