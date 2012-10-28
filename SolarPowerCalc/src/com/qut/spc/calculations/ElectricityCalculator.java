@@ -26,20 +26,21 @@ public class ElectricityCalculator implements ElectricityCalculationApi{
 		
 		double electricity = 0;
 		for (int i = 0; i < (timespanYear + 1); i ++) {
-			double actualSunPower = (dailySun/CORRECTION_FACTOR)*(1-(ageEfficiencyLoss*i)); //a sunlight correction factor of southern hemisphere
+			double actualSunPower = (dailySun/CORRECTION_FACTOR); //a sunlight correction factor of southern hemisphere
+			double effloss=1-(ageEfficiencyLoss*i);
 			if (solarPowerOutput >= actualSunPower){
 				if (i != timespanYear) {
-					electricity = electricity +  actualSunPower*dailyHours*365*inverterEfficiency;
+					electricity +=   actualSunPower*dailyHours*365*inverterEfficiency*effloss;
 				}
 				else  {
-					electricity = electricity + actualSunPower*dailyHours*(timespan - 365*i)*inverterEfficiency;
+					electricity +=actualSunPower*dailyHours*(timespan - 365*i)*inverterEfficiency*effloss;
 				}
 			} else {
 				if (i != timespanYear) {
-					electricity = electricity +  solarPowerOutput*dailyHours*365*inverterEfficiency;
+					electricity +=   solarPowerOutput*dailyHours*365*inverterEfficiency*effloss;
 				}
 				else  {
-					electricity = electricity + solarPowerOutput*dailyHours*(timespan - 365*i)*inverterEfficiency;
+					electricity += solarPowerOutput*dailyHours*(timespan - 365*i)*inverterEfficiency*effloss;
 				}
 			}
 		}
