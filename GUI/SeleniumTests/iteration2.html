@@ -30,6 +30,11 @@
 	<td></td>
 </tr>
 <tr>
+	<td>assertVisible</td>
+	<td>id=divWelcomePanel</td>
+	<td></td>
+</tr>
+<tr>
 	<td>assertElementPresent</td>
 	<td>id=txtCaptionTitle</td>
 	<td></td>
@@ -41,22 +46,32 @@
 </tr>
 <tr>
 	<td>assertElementPresent</td>
-	<td>id=divStepOne</td>
+	<td>id=divMainTitle</td>
 	<td></td>
 </tr>
 <tr>
 	<td>assertElementPresent</td>
-	<td>id=divStepTwo</td>
+	<td>id=divWelcomePanel</td>
 	<td></td>
 </tr>
 <tr>
 	<td>assertElementPresent</td>
-	<td>id=divStepThree</td>
+	<td>id=divSelectionTabs</td>
 	<td></td>
 </tr>
 <tr>
 	<td>assertElementPresent</td>
-	<td>id=divUserSelection</td>
+	<td>id=divEnergyUserProfile</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>id=divFilterResults</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>id=divResultsPanel</td>
 	<td></td>
 </tr>
 <tr>
@@ -82,7 +97,22 @@
 <tr>
 	<td>assertText</td>
 	<td>id=txtCaptionTitle</td>
-	<td>STEP 1 OF 3: SELECT A SOLAR PANEL</td>
+	<td>STEP 1 OF 4: YOUR LOCATION AND ENERGY CONSUMPTION</td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>id=txtUserPostcode</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>id=txtAverageConsumption</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>id=btnSubmitEnergyProfile</td>
+	<td></td>
 </tr>
 <tr>
 	<td>assertElementPresent</td>
@@ -91,8 +121,23 @@
 </tr>
 <tr>
 	<td>assertVisible</td>
+	<td>id=divEnergyUserProfile</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=btnSubmitEnergyProfile</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
 	<td>id=tblPanelResults</td>
 	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>id=txtCaptionTitle</td>
+	<td>STEP 2 OF 4: SELECT A SOLAR PANEL</td>
 </tr>
 <tr>
 	<td>click</td>
@@ -105,19 +150,9 @@
 	<td></td>
 </tr>
 <tr>
-	<td>assertNotVisible</td>
-	<td>id=divStepOne</td>
-	<td></td>
-</tr>
-<tr>
-	<td>assertVisible</td>
-	<td>id=divStepTwo</td>
-	<td></td>
-</tr>
-<tr>
 	<td>assertText</td>
 	<td>id=txtCaptionTitle</td>
-	<td>STEP 2 OF 3: SELECT AN INVERTER</td>
+	<td>STEP 3 OF 4: SELECT AN INVERTER</td>
 </tr>
 <tr>
 	<td>assertVisible</td>
@@ -146,12 +181,7 @@
 </tr>
 <tr>
 	<td>assertVisible</td>
-	<td>id=divStepThree</td>
-	<td></td>
-</tr>
-<tr>
-	<td>assertNotVisible</td>
-	<td>id=divStepTwo</td>
+	<td>id=divFilterResults</td>
 	<td></td>
 </tr>
 <tr>
@@ -170,11 +200,6 @@
 	<td></td>
 </tr>
 <tr>
-	<td>assertText</td>
-	<td>id=divResultsPanel</td>
-	<td>YOUR RESULTS PER YEAR PER MONTH PER WEEK ELECTRICITY PRODUCTION (kWh) 51465 4230 987 TOTAL COST (AUD) 230 230 230 RETURN ON INVESTMENT (AUD) 0 0 0</td>
-</tr>
-<tr>
 	<td>assertElementPresent</td>
 	<td>id=tdSolarPanelSelection</td>
 	<td></td>
@@ -212,6 +237,11 @@
 <tr>
 	<td>assertVisible</td>
 	<td>id=divResultsPanel</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>id=wizardResults</td>
 	<td></td>
 </tr>
 </tbody>
