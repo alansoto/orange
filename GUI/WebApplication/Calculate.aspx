@@ -1,6 +1,8 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="Calculate.aspx.cs" Inherits="Calculate" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
+    <link href='http://fonts.googleapis.com/css?family=Anton|Oswald' rel='stylesheet' type='text/css'>
+    
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <div class="container_12 content">
@@ -152,46 +154,89 @@
 
         <!-- start: results selectionpanel -->
         <div id="divResultsPanel" class="grid_12">
-            <h3>YOUR RESULTS</h3>
-            <table id="wizardResults">
-                <tr>
-                    <td></td>
-                    <td>PER YEAR</td>
-                    <td>PER MONTH</td>
-                    <td>PER WEEK</td>
-                </tr>
-                <tr>
-                    <td><h4>ELECTRICITY PRODUCTION (kWh)</h4></td>
-                    <td><h2 id="electricity_year">NA</h2></td>
-                    <td><h2 id="electricity_month">NA</h2></td>
-                    <td><h2 id="electricity_week">NA</h2></td>
-                </tr>
-                <tr>
-                    <td><h4>TOTAL COST (AUD)</h4></td>
-                    <td><h2 id="totalCost_year">NA</h2></td>
-                    <td><h2 id="totalCost_month">NA</h2></td>
-                    <td><h2 id="totalCost_week">NA</h2></td>
-                </tr>
-                <tr>
-                    <td><h4>RETURN ON INVESTMENT (%)</h4></td>
-                    <td><h2 id="roi_year">NA</h2></td>
-                    <td><h2 id="roi_month">NA</h2></td>
-                    <td><h2 id="roi_week">NA</h2></td>
-                </tr>
-                <tr>
-                    <td><h4>EXPECTED GOVERNMENT REBATES (AUD)</h4></td>
-                    <td><h2 id="governmentRebates_year">NA</h2></td>
-                    <td><h2 id="governmentRebates_month">NA</h2></td>
-                    <td><h2 id="governmentRebates_week">NA</h2></td>
-                </tr>
-                <tr style="display:none;">
-                    <td><h4>OPTIMAL PANEL ANGLE (DEGREES)</h4></td>
-                    <td><h2 id="optimalFacingAngle_summer">NA</h2><br />SUMMER</td>
-                    <td><h2 id="optimalFacingAngle_winter">NA</h2><br />WINTER</td>
-                </tr>
-                
-            </table>
+            
+            <div class="results-header">Your system will produce</div>
+            <div class="results-left">
+                <div id="graphElectricity" class="results-graph"></div>
+                <strong>PRODUCTION ELECTRICITY OVER 25 YEARS</strong>
+            </div>
+            <div class="results-right">
+                <span class="results-number" id="electricity_year">XX kwh</span> 
+                <span class="results-description">IN ONE YEAR</span><br />
+                <span class="results-number" id="electricity_month">XX kwh</span> 
+                <span class="results-description">IN ONE MONTH</span><br />
+                <span class="results-number" id="electricity_week">XX kwh</span> 
+                <span class="results-description">IN ONE WEEK</span><br />
+            </div>
 
+            <div class="clearfix"></div>
+
+
+            <div class="results-header">In your area there is an average of</div>
+            <div> 
+                <span class="results-number" id="sunIntensity">XX WATTS</span>
+                <span class="results-description">OF SUN INTENSITY</span><br />
+                <span class="results-number" id="dailySunHours">XX HOURS</span>
+                <span class="results-description">OF BEAUTIFUL, SUNNY DAYLIGHT</span><br />
+            </div>
+            <div class="results-header">So, this all means that...<br />Your system will cost aproximately</div>
+            <div>
+                <span class="results-number" id="totalCost_year">$ XX</span> 
+                <span class="results-description">ON ONE UPFRONT PAYMENT, OR</span><br />
+                <span class="results-number" id="totalCost_month">$ XX</span> 
+                <span class="results-description">IN 12 MONTHLY PAYMENTS, OR</span><br />
+                <span class="results-number" id="totalCost_week">$ XX</span> 
+                <span class="results-description">IN 52 WEEKLY PAYMENTS</span><br />
+            </div>
+
+            <div class="clearfix"></div>
+
+            <div class="results-header">And you will save</div>
+            <div class="results-left">
+                <div id="graphSavings" class="results-graph"></div>
+                <strong>SAVINGS OVER 25 YEARS</strong>
+            </div>
+            <div class="results-right">
+                <span class="results-number" id="savings_year">$ XX</span> 
+                <span class="results-description">IN ONE YEAR</span><br />
+                <span class="results-number" id="savings_month">$ XX</span> 
+                <span class="results-description">IN ONE MONTH</span><br />
+                <span class="results-number" id="savings_week">$ XX</span> 
+                <span class="results-description">IN ONE WEEK</span><br />
+            </div>
+
+            <div class="clearfix"></div>
+            
+            <div class="results-header">Every dollar invested will return</div>
+            <div class="results-left">
+                <div id="graphRoi" class="results-graph"></div>
+                <strong>RETURNS ON INVESTMENT OVER 25 YEARS</strong>
+            </div>
+            <div class="results-right">
+                <span class="results-number" id="roi_year">XX%</span> 
+                <span class="results-description">IN ONE YEAR</span><br />
+                <span class="results-number" id="roi_month">XX%</span> 
+                <span class="results-description">IN ONE MONTH</span><br />
+                <span class="results-number" id="roi_week">XX%</span> 
+                <span class="results-description">IN ONE WEEK</span><br />
+            </div>
+
+            <div class="clearfix"></div>
+            
+            <div class="results-header">WHAT ABOUT GOVERNMENT REBATES?<br />AT $0.08 PER KWH EXPORTED YOU WILL RECEIVE</div>
+            <div class="results-left">
+                <div id="graphRebates" class="results-graph"></div>
+                <strong>GOVERNMENT REBATES OVER 25 YEARS</strong>
+            </div>
+            <div class="results-right">
+                <span class="results-number" id="governmentRebates_year">$ XX</span> 
+                <span class="results-description">IN ONE YEAR</span><br />
+                <span class="results-number" id="governmentRebates_month">$ XX</span> 
+                <span class="results-description">IN ONE MONTH</span><br />
+                <span class="results-number" id="governmentRebates_week">$ XX</span> 
+                <span class="results-description">IN ONE WEEK</span><br />
+            </div>
+                
         </div>
         <div class="clear"></div>
         <!-- end: results panel -->
@@ -203,6 +248,8 @@
     <script src="js/orange/SunCalculatorUrlBuilder.js" type="text/javascript"></script>
     <script src="js/libs/jExpand.js" type="text/javascript"></script>
     <script src="js/orange/Calculate.aspx.js" type="text/javascript"></script>
+    <script src="js/jqueryFlot/jquery.flot.js" type="text/javascript"></script>
+    <script src="js/jqueryFlot/Graph.js" type="text/javascript"></script>
     <!-- start: steps set up -->
     <script type="text/javascript">
         function resetWizard() {
@@ -446,6 +493,7 @@
             var urlBuilder;
             var h = new HelperFunctions();
             
+            
             //set variables to fill panel table
             urlBuilder = new UrlBuilder();
             urlBuilder.GoogleAppsEngineBaseUrl = globalVars.GoogleAppsEngineBaseUrl;
@@ -468,6 +516,7 @@
             //make ajax call to fill battery table
             h.ajaxCallViaProxy(createBatteryTable, genericAjaxErrorHandler, urlBuilder.toString());
             
+            
 
         });
     </script>
@@ -476,7 +525,7 @@
     <!-- start: generic ajax error handler -->
     <script type="text/javascript">
         function genericAjaxErrorHandler() {
-            alert('an error has occurred');
+            alert('hmmm... sorry, the system just pooped itself, please try again :)');
         }
     </script>
     <!-- end: generic ajax error handler -->
@@ -847,10 +896,12 @@
             $('#divSelectSolarPanel').on('click', '.panel-select', function (e) {
                 e.preventDefault();
                 var numberPanels = prompt('Number of Panels', '10');
-                $('#selectionNumberOfPanels').text(numberPanels);
-                $('#selectionSolarPanel').text($(this).attr('id'));
-                $('#detailsSolarPanel').html($(this).parent().prev().prev().prev().html());
-                stepInverterSelection();
+                if (numberPanels) {
+                    $('#selectionNumberOfPanels').text(numberPanels);
+                    $('#selectionSolarPanel').text($(this).attr('id'));
+                    $('#detailsSolarPanel').html($(this).parent().prev().prev().prev().html());
+                    stepInverterSelection();
+                }
             });
         });
     </script>
@@ -886,5 +937,37 @@
     <!-- end: battery selection -->
 
    
+   <!-- start: clicking on main tabs to navigate in wizard -->
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#tdEnergyUserProfile').css('cursor', 'pointer');
+            $('#tdSolarPanelSelection').css('cursor', 'pointer');
+            $('#tdInverterSelection').css('cursor', 'pointer');
+            $('#tdBatterySelection').css('cursor', 'pointer');
+
+
+
+            $('#tdEnergyUserProfile').click(function (e) {
+                stepEnergyUserProfile();
+            });
+
+            $('#tdSolarPanelSelection').click(function (e) {
+                stepSolarPanelSelection();
+            });
+
+            $('#tdInverterSelection').click(function (e) {
+                stepInverterSelection();
+            });
+
+            $('#tdBatterySelection').click(function (e) {
+                stepBatterySelection();
+            });
+        });
+
+        
+    </script>
+   
+   
+   <!-- end: clicking on main tabs to navigate in wizard -->
 
 </asp:Content>

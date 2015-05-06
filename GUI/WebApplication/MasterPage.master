@@ -22,8 +22,7 @@
     <link href="css/style.css" rel="stylesheet" type="text/css" />
     <link href="css/GUI.css" rel="stylesheet" type="text/css" />
     <!-- typography -->
-    <link href='http://fonts.googleapis.com/css?family=Anton' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Anton|Lato' rel='stylesheet' type='text/css'>
     <!-- More ideas for your <head> here: h5bp.com/d/head-Tips -->
     <!-- All JavaScript at the bottom, except this Modernizr build.
        Modernizr enables HTML5 elements & feature detects for optimal performance.
@@ -53,10 +52,10 @@
             <div class="grid_3 menu-item">
                 MEASURE
                 <br />
-                <a class="menu-link" id="linkCalculateEfficiency" href="Calculate.aspx">ENERGY EFFICIENCY</a>
+                <a class="menu-link" id="linkCalculateEfficiency" href="Calculate.aspx">SYSTEM FITNESS</a>
             </div>
             <div class="grid_2 menu-item">
-                ABOUT</div>
+                </div>
             <div class="clear">
             </div>
         </div>
